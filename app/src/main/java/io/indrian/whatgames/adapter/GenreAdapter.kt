@@ -23,7 +23,11 @@ class GenreAdapter : RecyclerView.Adapter<GenreAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = 10
 
-    inner class ViewHolder(itemBinding: GenreItemLayoutBinding) : RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind() {}
+    inner class ViewHolder(private val itemBinding: GenreItemLayoutBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+        fun bind() {
+            with(itemBinding) {
+
+            }
+        }
     }
 }

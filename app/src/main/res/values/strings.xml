@@ -7,4 +7,8 @@
     <string name="image_game">Image Game</string>
     <string name="title_game">Title Game</string>
     <string name="rating">Rating</string>
+    <string name="backdrop_image">Backdrop Image</string>
+    <string name="date">Date</string>
+    <string name="overview">Overview</string>
+    <string name="image_back">Image Back</string>
 </resources>
