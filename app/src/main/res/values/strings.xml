@@ -13,4 +13,5 @@
     <string name="image_back">Image Back</string>
     <string name="add_favorite">Add Favorite</string>
     <string name="share_it">Share It</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

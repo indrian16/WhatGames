@@ -1,12 +1,14 @@
 package io.indrian.whatgames.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import io.indrian.whatgames.adapter.GameAdapter
 import io.indrian.whatgames.adapter.GenreAdapter
 import io.indrian.whatgames.databinding.ActivityMainBinding
+import io.indrian.whatgames.ui.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding get() = _binding!!
@@ -16,12 +18,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         binding.rvGenres.adapter = genreAdapter
         binding.rvReleased.adapter = gameAdapter
         binding.rvRating.adapter = gameAdapter
+    }
+
+    override fun setupBinding() {
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
+
+    override fun initListener() {
+        binding.imageFavorite.setOnClickListener {
+            val uri = Uri.parse("whatgames://favorite")
+            startActivity(Intent(Intent.ACTION_VIEW, uri))
+        }
     }
 
     override fun onDestroy() {

@@ -16,7 +16,6 @@
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:contentDescription="@string/search_image"
             android:src="@drawable/ic_game_console"
             app:layout_constraintBottom_toBottomOf="@+id/card_user"
@@ -25,16 +24,26 @@
             />
 
         <ImageView
-            android:id="@+id/image_search"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:id="@+id/image_favorite"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
             android:contentDescription="@string/search_image"
-            android:src="@drawable/ic_search"
+            android:src="@drawable/ic_love_outlined"
             app:layout_constraintBottom_toBottomOf="@+id/image_logo"
             app:layout_constraintStart_toEndOf="@+id/image_logo"
             app:layout_constraintTop_toTopOf="@+id/image_logo" />
+
+        <ImageView
+            android:id="@+id/image_search"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/search_image"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@+id/image_favorite"
+            app:layout_constraintStart_toEndOf="@+id/image_favorite"
+            app:layout_constraintTop_toTopOf="@+id/image_favorite" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_user"
