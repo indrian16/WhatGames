@@ -24,7 +24,7 @@
             android:id="@+id/tv_date"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/date"
@@ -50,14 +50,40 @@
             android:id="@+id/tv_genres"
             style="@style/TextAppearance.MdcTypographyStyles.Subtitle2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:maxLines="2"
             android:text="@string/title_game"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/btn_favorite"
             app:layout_constraintEnd_toEndOf="@+id/tv_title"
             app:layout_constraintStart_toStartOf="@+id/tv_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/add_favorite"
+            app:cornerRadius="8dp"
+            app:elevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_genres" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_share_it"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_share"
+            app:backgroundTint="@color/color_grey"
+            app:elevation="0dp"
+            android:contentDescription="@string/share_it"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_favorite"
+            app:layout_constraintStart_toStartOf="@+id/tv_genres"
+            app:layout_constraintTop_toTopOf="@+id/btn_favorite"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

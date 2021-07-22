@@ -11,4 +11,6 @@
     <string name="date">Date</string>
     <string name="overview">Overview</string>
     <string name="image_back">Image Back</string>
+    <string name="add_favorite">Add Favorite</string>
+    <string name="share_it">Share It</string>
 </resources>
