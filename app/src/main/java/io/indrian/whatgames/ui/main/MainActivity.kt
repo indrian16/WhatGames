@@ -30,8 +30,12 @@ class MainActivity : BaseActivity() {
 
     override fun initListener() {
         binding.imageFavorite.setOnClickListener {
-            val uri = Uri.parse("whatgames://favorite")
-            startActivity(Intent(Intent.ACTION_VIEW, uri))
+            Intent(
+                this,
+                Class.forName("io.indrian.favorite.FavoriteActivity")
+            ).run {
+                startActivity(this)
+            }
         }
     }
 

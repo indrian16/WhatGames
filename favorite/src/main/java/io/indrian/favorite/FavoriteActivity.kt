@@ -1,6 +1,7 @@
 package io.indrian.favorite
 
 import android.os.Bundle
+import android.widget.Toast
 import io.indrian.favorite.databinding.ActivityFavoriteBinding
 import io.indrian.whatgames.adapter.GameAdapter
 import io.indrian.whatgames.ui.base.BaseActivity
