@@ -1,7 +1,6 @@
 package io.indrian.whatgames.ui.main
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import io.indrian.whatgames.adapter.GameAdapter
 import io.indrian.whatgames.adapter.GenreAdapter

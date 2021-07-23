@@ -1,12 +1,26 @@
 package io.indrian.whatgames.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import io.indrian.whatgames.R
+import io.indrian.whatgames.databinding.ActivityDetailBinding
+import io.indrian.whatgames.ui.base.BaseActivity
 
-class DetailActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+class DetailActivity : BaseActivity() {
+
+    private var _binding: ActivityDetailBinding? = null
+    private val binding: ActivityDetailBinding get() = _binding!!
+
+    override fun setupBinding() {
+        _binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
+
+    override fun initListener() {
+        with(binding) {
+            imageBack.setOnClickListener { finish() }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
