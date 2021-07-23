@@ -6,6 +6,7 @@ import io.indrian.whatgames.adapter.GameAdapter
 import io.indrian.whatgames.adapter.GenreAdapter
 import io.indrian.whatgames.databinding.ActivityMainBinding
 import io.indrian.whatgames.ui.base.BaseActivity
+import io.indrian.whatgames.ui.search.SearchActivity
 
 class MainActivity : BaseActivity() {
 
@@ -28,13 +29,16 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        binding.imageFavorite.setOnClickListener {
-            Intent(
-                this,
-                Class.forName("io.indrian.favorite.FavoriteActivity")
-            ).run {
-                startActivity(this)
+        with(binding) {
+            imageFavorite.setOnClickListener {
+                Intent(
+                    it.context,
+                    Class.forName("io.indrian.favorite.FavoriteActivity")
+                ).run {
+                    startActivity(this)
+                }
             }
+            imageSearch.setOnClickListener { SearchActivity.push(this@MainActivity) }
         }
     }
 
