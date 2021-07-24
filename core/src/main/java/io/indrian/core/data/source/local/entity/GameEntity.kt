@@ -26,5 +26,5 @@ data class GameEntity(
     @ColumnInfo(name = "website")
     val website: String = "",
     @ColumnInfo(name = "is_favorite")
-    val isFavorite: Boolean = false
+    var isFavorite: Boolean = false
 )
