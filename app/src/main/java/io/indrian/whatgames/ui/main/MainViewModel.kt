@@ -6,5 +6,7 @@ import io.indrian.core.domain.usecase.GameUseCase
 
 class MainViewModel(gameUseCase: GameUseCase) : ViewModel() {
 
-    val games = gameUseCase.getGames().asLiveData()
+    val gamesReleased = gameUseCase.getGamesReleased().asLiveData()
+
+    val gamesRating = gameUseCase.getGamesRating().asLiveData()
 }

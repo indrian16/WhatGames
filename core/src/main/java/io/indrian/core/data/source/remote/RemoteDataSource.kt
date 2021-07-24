@@ -12,10 +12,27 @@ import timber.log.Timber
 
 class RemoteDataSource(private val apiService: ApiService) {
 
-    suspend fun getGames(): Flow<ApiResponse<List<GameResponse>>> {
+    suspend fun getGamesReleased(): Flow<ApiResponse<List<GameResponse>>> {
         return flow {
             try {
-                val response = apiService.getGames()
+                val response = apiService.getGamesReleased()
+                val results = response.gameResponses
+                if (results.isNotEmpty()) {
+                    emit(ApiResponse.Success(results))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Timber.e(e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getGamesRating(): Flow<ApiResponse<List<GameResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getGamesRating()
                 val results = response.gameResponses
                 if (results.isNotEmpty()) {
                     emit(ApiResponse.Success(results))

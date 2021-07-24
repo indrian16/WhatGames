@@ -18,33 +18,39 @@ class MainActivity : BaseActivity() {
     private val binding: ActivityMainBinding get() = _binding!!
 
     private val genreAdapter = GenreAdapter()
-    private val gameAdapter = GameAdapter()
+    private val gameReleasedAdapter = GameAdapter()
+    private val gameRatingAdapter = GameAdapter()
 
     private val viewModel: MainViewModel by viewModel()
 
-    private val gameObserver = Observer<Resource<List<Game>>> { state ->
+    private val gameReleasedObserver = Observer<Resource<List<Game>>> { state ->
         when (state) {
-            is Resource.Loading -> {
-                binding.swipeLayout.isRefreshing = true
-            }
+            is Resource.Loading -> { }
             is Resource.Success -> {
-                binding.swipeLayout.isRefreshing = false
+                gameReleasedAdapter.add(state.data)
+            }
+            is Resource.Error -> { }
+        }
+    }
 
-                gameAdapter.add(state.data)
+    private val gameRatingObserver = Observer<Resource<List<Game>>> { state ->
+        when (state) {
+            is Resource.Loading -> { }
+            is Resource.Success -> {
+                gameRatingAdapter.add(state.data)
             }
-            is Resource.Error -> {
-                binding.swipeLayout.isRefreshing = false
-            }
+            is Resource.Error -> { }
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.rvGenres.adapter = genreAdapter
-        binding.rvReleased.adapter = gameAdapter
-        binding.rvRating.adapter = gameAdapter
+        binding.rvReleased.adapter = gameReleasedAdapter
+        binding.rvRating.adapter = gameRatingAdapter
 
-        viewModel.games.observe(this, gameObserver)
+        viewModel.gamesReleased.observe(this, gameReleasedObserver)
+        viewModel.gamesRating.observe(this, gameRatingObserver)
     }
 
     override fun setupBinding() {
@@ -68,7 +74,8 @@ class MainActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.games.removeObserver(gameObserver)
+        viewModel.gamesReleased.removeObserver(gameReleasedObserver)
+        viewModel.gamesRating.removeObserver(gameRatingObserver)
         _binding = null
     }
 }

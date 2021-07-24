@@ -7,7 +7,8 @@ import io.indrian.core.data.source.local.room.AppDatabase
 
 class LocalDataSource(private val appDatabase: AppDatabase) {
 
-    fun getGames() = appDatabase.gameDao().getGames()
+    fun getGamesReleased() = appDatabase.gameDao().getGamesReleased()
+    fun getGamesRating() = appDatabase.gameDao().getGamesRating()
     fun getFavoriteGames() = appDatabase.gameDao().getFavoriteGames()
     suspend fun insertGames(games: List<GameEntity>) = appDatabase.gameDao().insertGames(games)
     fun setFavoriteGame(gameEntity: GameEntity, newState: Boolean) {

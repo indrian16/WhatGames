@@ -12,7 +12,7 @@ data class GameEntity(
     @ColumnInfo(name = "id")
     val id: Int = 0,
     @ColumnInfo(name = "background_image")
-    val backgroundImage: String = "",
+    val backgroundImage: String? = "",
     @ColumnInfo(name = "description_raw")
     val descriptionRaw: String = "",
     @ColumnInfo(name = "genres")
@@ -25,6 +25,8 @@ data class GameEntity(
     val updated: Date = Date(),
     @ColumnInfo(name = "website")
     val website: String = "",
+    @ColumnInfo(name = "ordering")
+    var ordering: String = "",
     @ColumnInfo(name = "is_favorite")
     var isFavorite: Boolean = false
 )

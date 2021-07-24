@@ -49,17 +49,17 @@ class RemoteDataSourceTest {
 
     @Test
     fun getGames() = testDispatcher.runBlockingTest {
-        coEvery { apiService.getGames() } returns ListGameResponse(
+        coEvery { apiService.getGamesReleased() } returns ListGameResponse(
             gameResponses = FakeRemoteDataSource.getGames()
         )
 
-        remoteDataSource.getGames().collect {
+        remoteDataSource.getGamesReleased().collect {
             assertThat(it, CoreMatchers.instanceOf(ApiResponse.Success::class.java))
             val response = (it as ApiResponse.Success).data
             assertEquals(true, response.isNotEmpty())
             assertEquals("Shadow of the Colossus  (2018)", response.first().name)
         }
-        coVerify { apiService.getGames() }
+        coVerify { apiService.getGamesReleased() }
     }
 
     @Test

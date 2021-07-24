@@ -1,7 +1,5 @@
-package io.indrian.core.data.source
+package io.indrian.core.data
 
-import io.indrian.core.data.NetworkBoundResource
-import io.indrian.core.data.Resource
 import io.indrian.core.data.source.local.LocalDataSource
 import io.indrian.core.data.source.remote.RemoteDataSource
 import io.indrian.core.data.source.remote.network.ApiResponse
@@ -19,21 +17,43 @@ class GameRepository(
     private val appExecutors: AppExecutors
 ) : IGameRepository {
 
-    override fun getGames(): Flow<Resource<List<Game>>> =
+    override fun getGamesReleased(): Flow<Resource<List<Game>>> =
         object : NetworkBoundResource<List<Game>, List<GameResponse>>() {
             override fun loadFromDB(): Flow<List<Game>> {
-                return localDataSource.getGames().map {
+                return localDataSource.getGamesReleased().map {
                     DataMapper.mapEntitiesToDomain(it)
                 }
             }
 
             override fun shouldFetch(data: List<Game>?): Boolean = data == null || data.isEmpty()
 
-            override suspend fun createCall(): Flow<ApiResponse<List<GameResponse>>> = remoteDataSource.getGames()
+            override suspend fun createCall(): Flow<ApiResponse<List<GameResponse>>> = remoteDataSource.getGamesReleased()
 
             override suspend fun saveCallResult(data: List<GameResponse>) {
                 val entities = DataMapper.mapResponseToEntities(data)
-                localDataSource.insertGames(entities)
+                localDataSource.insertGames(
+                    entities.map { it.copy(ordering = "released") }
+                )
+            }
+        }.asFlow()
+
+    override fun getGamesRating(): Flow<Resource<List<Game>>> =
+        object : NetworkBoundResource<List<Game>, List<GameResponse>>() {
+            override fun loadFromDB(): Flow<List<Game>> {
+                return localDataSource.getGamesRating().map {
+                    DataMapper.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<Game>?): Boolean = data == null || data.isEmpty()
+
+            override suspend fun createCall(): Flow<ApiResponse<List<GameResponse>>> = remoteDataSource.getGamesRating()
+
+            override suspend fun saveCallResult(data: List<GameResponse>) {
+                val entities = DataMapper.mapResponseToEntities(data)
+                localDataSource.insertGames(
+                    entities.map { it.copy(ordering = "rating") }
+                )
             }
         }.asFlow()
 

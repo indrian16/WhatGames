@@ -7,8 +7,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface GameDao {
 
-    @Query("SELECT * FROM games ORDER BY updated DESC")
-    fun getGames(): Flow<List<GameEntity>>
+    @Query("SELECT * FROM games WHERE ordering = 'released'")
+    fun getGamesReleased(): Flow<List<GameEntity>>
+
+    @Query("SELECT * FROM games WHERE ordering = 'rating'")
+    fun getGamesRating(): Flow<List<GameEntity>>
 
     @Query("SELECT * FROM games WHERE is_favorite = 1")
     fun getFavoriteGames(): Flow<List<GameEntity>>

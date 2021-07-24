@@ -22,7 +22,7 @@ object DataMapper {
     fun mapEntitiesToDomain(input: List<GameEntity>): List<Game> {
         return input.map {
             Game(
-                backgroundImage = it.backgroundImage,
+                backgroundImage = it.backgroundImage ?: "",
                 genres = listOf(),
                 id = it.id,
                 name = it.name,

@@ -9,9 +9,16 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("api/games")
-    suspend fun getGames(
+    suspend fun getGamesReleased(
         @Query("page") page: Int = 1,
-        @Query("page_size") pageSize: Int = 15,
+        @Query("page_size") pageSize: Int = 10,
+        @Query("dates") updated: String = "2021-01-01,2021-12-31",
+    ): ListGameResponse
+
+    @GET("api/games")
+    suspend fun getGamesRating(
+        @Query("page") page: Int = 1,
+        @Query("page_size") pageSize: Int = 10
     ): ListGameResponse
 
     @GET("api/games")

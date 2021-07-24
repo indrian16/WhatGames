@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.Flow
 
 class GameInteractor(private val gameRepository: IGameRepository) : GameUseCase {
 
-    override fun getGames(): Flow<Resource<List<Game>>> = gameRepository.getGames()
+    override fun getGamesReleased(): Flow<Resource<List<Game>>> = gameRepository.getGamesReleased()
+
+    override fun getGamesRating(): Flow<Resource<List<Game>>> = gameRepository.getGamesRating()
 
     override fun getFavoriteGames(): Flow<List<Game>> = gameRepository.getFavoriteGame()
 

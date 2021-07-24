@@ -1,6 +1,6 @@
 package io.indrian.core.di
 
-import io.indrian.core.data.source.GameRepository
+import io.indrian.core.data.GameRepository
 import io.indrian.core.data.source.local.LocalDataSource
 import io.indrian.core.data.source.remote.RemoteDataSource
 import io.indrian.core.domain.repository.IGameRepository
