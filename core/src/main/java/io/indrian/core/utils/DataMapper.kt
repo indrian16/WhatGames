@@ -68,4 +68,15 @@ object DataMapper {
             )
         }
     }
+
+    fun mapGenreEntitiesToDomain(input: List<GenreEntity>): List<Genre> {
+        return input.map {
+            Genre(
+                id = it.id,
+                gamesCount = it.gamesCount,
+                imageBackground = it.imageBackground,
+                name = it.name,
+            )
+        }
+    }
 }

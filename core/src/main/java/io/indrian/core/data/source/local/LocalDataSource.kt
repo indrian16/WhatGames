@@ -18,7 +18,7 @@ class LocalDataSource(private val appDatabase: AppDatabase) {
 
     fun getGenres() = appDatabase.genreDao().getGenres()
     fun getGenreById(id: Int) = appDatabase.genreDao().getGenreById(id)
-    fun insertGenres(genres: List<GenreEntity>) = appDatabase.genreDao().insertGenres(genres)
+    suspend fun insertGenres(genres: List<GenreEntity>) = appDatabase.genreDao().insertGenres(genres)
 
     fun getPlatforms() = appDatabase.platformDao().getPlatforms()
     fun getPlatformById(id: Int) = appDatabase.platformDao().getPlatformById(id)

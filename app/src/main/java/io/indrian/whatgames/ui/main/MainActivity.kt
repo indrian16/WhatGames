@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import io.indrian.core.data.Resource
 import io.indrian.core.domain.model.Game
+import io.indrian.core.domain.model.Genre
 import io.indrian.core.ui.GameAdapter
 import io.indrian.core.ui.GenreAdapter
 import io.indrian.whatgames.databinding.ActivityMainBinding
@@ -43,6 +44,16 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    private val genresObserver = Observer<Resource<List<Genre>>> { state ->
+        when (state) {
+            is Resource.Loading -> { }
+            is Resource.Success -> {
+                genreAdapter.add(state.data)
+            }
+            is Resource.Error -> { }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.rvGenres.adapter = genreAdapter
@@ -51,6 +62,7 @@ class MainActivity : BaseActivity() {
 
         viewModel.gamesReleased.observe(this, gameReleasedObserver)
         viewModel.gamesRating.observe(this, gameRatingObserver)
+        viewModel.genres.observe(this, genresObserver)
     }
 
     override fun setupBinding() {
@@ -76,6 +88,7 @@ class MainActivity : BaseActivity() {
         super.onDestroy()
         viewModel.gamesReleased.removeObserver(gameReleasedObserver)
         viewModel.gamesRating.removeObserver(gameRatingObserver)
+        viewModel.genres.removeObserver(genresObserver)
         _binding = null
     }
 }

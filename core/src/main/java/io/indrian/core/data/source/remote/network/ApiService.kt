@@ -2,6 +2,7 @@ package io.indrian.core.data.source.remote.network
 
 import io.indrian.core.data.source.remote.response.GameDetailsResponse
 import io.indrian.core.data.source.remote.response.ListGameResponse
+import io.indrian.core.data.source.remote.response.ListGenreResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -30,4 +31,7 @@ interface ApiService {
 
     @GET("api/games/{id}")
     suspend fun getGameDetails(@Path("id") id: Int): GameDetailsResponse?
+
+    @GET("api/games")
+    suspend fun getGenres(): ListGenreResponse
 }

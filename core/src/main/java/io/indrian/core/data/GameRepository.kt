@@ -4,14 +4,15 @@ import io.indrian.core.data.source.local.LocalDataSource
 import io.indrian.core.data.source.remote.RemoteDataSource
 import io.indrian.core.data.source.remote.network.ApiResponse
 import io.indrian.core.data.source.remote.response.GameResponse
+import io.indrian.core.data.source.remote.response.GenreResponse
 import io.indrian.core.domain.model.Game
+import io.indrian.core.domain.model.Genre
 import io.indrian.core.domain.repository.IGameRepository
 import io.indrian.core.utils.AppExecutors
 import io.indrian.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import timber.log.Timber
 
 class GameRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -34,13 +35,11 @@ class GameRepository(
 
             override suspend fun saveCallResult(data: List<GameResponse>) {
                 data.forEach {
-                    appExecutors.diskIO().execute {
-                        localDataSource.insertGenres(
-                            DataMapper.mapGenreResponseToEntities(
-                                it.genreResponses
-                            )
+                    localDataSource.insertGenres(
+                        DataMapper.mapGenreResponseToEntities(
+                            it.genreResponses
                         )
-                    }
+                    )
                 }
 
                 val entities = DataMapper.mapResponseToEntities(data)
@@ -64,14 +63,11 @@ class GameRepository(
 
             override suspend fun saveCallResult(data: List<GameResponse>) {
                 data.forEach {
-                    Timber.d("test: ${it.genreResponses}")
-                    appExecutors.diskIO().execute {
-                        localDataSource.insertGenres(
-                            DataMapper.mapGenreResponseToEntities(
-                                it.genreResponses
-                            )
+                    localDataSource.insertGenres(
+                        DataMapper.mapGenreResponseToEntities(
+                            it.genreResponses
                         )
-                    }
+                    )
                 }
 
                 val entities = DataMapper.mapResponseToEntities(data)
@@ -91,4 +87,22 @@ class GameRepository(
         val entity = DataMapper.mapDomainToEntity(game)
         appExecutors.diskIO().execute { localDataSource.setFavoriteGame(entity, state) }
     }
+
+    override fun getGenres(): Flow<Resource<List<Genre>>> =
+        object : NetworkBoundResource<List<Genre>, List<GenreResponse>>() {
+            override fun loadFromDB(): Flow<List<Genre>> {
+                return localDataSource.getGenres().map {
+                    DataMapper.mapGenreEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<Genre>?): Boolean = data == null || data.isEmpty()
+
+            override suspend fun createCall(): Flow<ApiResponse<List<GenreResponse>>> = remoteDataSource.getGenres()
+
+            override suspend fun saveCallResult(data: List<GenreResponse>) {
+                val entities = DataMapper.mapGenreResponseToEntities(data)
+                localDataSource.insertGenres(entities)
+            }
+        }.asFlow()
 }
