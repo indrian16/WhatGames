@@ -12,8 +12,6 @@ val databaseModule = module {
             androidContext(),
             AppDatabase::class.java,
             CoreUtils.DB_NAME
-        ).fallbackToDestructiveMigration()
+        ).fallbackToDestructiveMigration().build()
     }
-
-    factory { get<AppDatabase>().gameDao() }
 }

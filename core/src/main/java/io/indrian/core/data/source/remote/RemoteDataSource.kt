@@ -4,8 +4,10 @@ import io.indrian.core.data.source.remote.network.ApiResponse
 import io.indrian.core.data.source.remote.network.ApiService
 import io.indrian.core.data.source.remote.response.GameDetailsResponse
 import io.indrian.core.data.source.remote.response.GameResponse
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import timber.log.Timber
 
 class RemoteDataSource(private val apiService: ApiService) {
@@ -24,7 +26,7 @@ class RemoteDataSource(private val apiService: ApiService) {
                 emit(ApiResponse.Error(e.toString()))
                 Timber.e(e.toString())
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 
     suspend fun searchGames(search: String): Flow<ApiResponse<List<GameResponse>>> {
@@ -41,7 +43,7 @@ class RemoteDataSource(private val apiService: ApiService) {
                 emit(ApiResponse.Error(e.toString()))
                 Timber.e(e.toString())
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 
     suspend fun getGameDetails(id: Int): Flow<ApiResponse<GameDetailsResponse>> {
@@ -57,6 +59,6 @@ class RemoteDataSource(private val apiService: ApiService) {
                 emit(ApiResponse.Error(e.toString()))
                 Timber.e(e.toString())
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 }

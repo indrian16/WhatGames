@@ -2,6 +2,9 @@ package io.indrian.whatgames.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import io.indrian.core.data.Resource
+import io.indrian.core.domain.model.Game
 import io.indrian.whatgames.adapter.GameAdapter
 import io.indrian.whatgames.adapter.GenreAdapter
 import io.indrian.whatgames.databinding.ActivityMainBinding
@@ -19,11 +22,21 @@ class MainActivity : BaseActivity() {
 
     private val viewModel: MainViewModel by viewModel()
 
+    private val gameObserver = Observer<Resource<List<Game>>> { state ->
+        when (state) {
+            is Resource.Loading -> {}
+            is Resource.Success -> {}
+            is Resource.Error -> {}
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.rvGenres.adapter = genreAdapter
         binding.rvReleased.adapter = gameAdapter
         binding.rvRating.adapter = gameAdapter
+
+        viewModel.games.observe(this, gameObserver)
     }
 
     override fun setupBinding() {
@@ -47,6 +60,7 @@ class MainActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        viewModel.games.removeObserver(gameObserver)
         _binding = null
     }
 }
