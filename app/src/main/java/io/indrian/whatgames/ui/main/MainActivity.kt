@@ -7,6 +7,7 @@ import io.indrian.whatgames.adapter.GenreAdapter
 import io.indrian.whatgames.databinding.ActivityMainBinding
 import io.indrian.whatgames.ui.base.BaseActivity
 import io.indrian.whatgames.ui.search.SearchActivity
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity() {
 
@@ -15,6 +16,8 @@ class MainActivity : BaseActivity() {
 
     private val genreAdapter = GenreAdapter()
     private val gameAdapter = GameAdapter()
+
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

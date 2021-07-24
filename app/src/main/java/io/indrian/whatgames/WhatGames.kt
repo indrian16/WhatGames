@@ -4,6 +4,8 @@ import android.app.Application
 import io.indrian.core.di.databaseModule
 import io.indrian.core.di.networkModule
 import io.indrian.core.di.repositoryModule
+import io.indrian.whatgames.di.useCaseModule
+import io.indrian.whatgames.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -18,7 +20,9 @@ class WhatGames : Application() {
             modules(
                 databaseModule,
                 networkModule,
-                repositoryModule
+                repositoryModule,
+                useCaseModule,
+                viewModelModule
             )
         }
     }
