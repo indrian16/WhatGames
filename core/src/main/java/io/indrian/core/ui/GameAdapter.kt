@@ -11,11 +11,14 @@ class GameAdapter : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
     private var games: List<Game> = arrayListOf()
 
+    fun clear() {
+        this.games = listOf()
+        notifyDataSetChanged()
+    }
+
     fun add(games: List<Game>?) {
-        if (games?.isNotEmpty() == true) {
-            this.games = games
-            notifyDataSetChanged()
-        }
+        this.games = games ?: listOf()
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

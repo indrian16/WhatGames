@@ -5,14 +5,13 @@ import io.indrian.core.data.source.remote.RemoteDataSource
 import io.indrian.core.data.source.remote.network.ApiResponse
 import io.indrian.core.data.source.remote.response.GameResponse
 import io.indrian.core.data.source.remote.response.GenreResponse
+import io.indrian.core.data.source.remote.response.ListGameResponse
 import io.indrian.core.domain.model.Game
 import io.indrian.core.domain.model.Genre
 import io.indrian.core.domain.repository.IGameRepository
 import io.indrian.core.utils.AppExecutors
 import io.indrian.core.utils.DataMapper
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 
 class GameRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -76,6 +75,26 @@ class GameRepository(
                 )
             }
         }.asFlow()
+
+    override fun searchGames(search: String): Flow<Resource<List<Game>>> {
+        return flow {
+            emit(Resource.Loading())
+            when (val response = remoteDataSource.searchGames(search).first()) {
+                is ApiResponse.Success -> {
+                    val entities = DataMapper.mapResponseToEntities(response.data)
+                    val domain = DataMapper.mapEntitiesToDomain(entities, arrayListOf())
+                    emit(
+                        Resource.Success(domain)
+                    )
+                }
+                is ApiResponse.Error -> {
+                    emit(
+                        Resource.Error<List<Game>>(response.errorMessage)
+                    )
+                }
+            }
+        }
+    }
 
     override fun getFavoriteGame(): Flow<List<Game>> {
         return localDataSource.getFavoriteGames().map {

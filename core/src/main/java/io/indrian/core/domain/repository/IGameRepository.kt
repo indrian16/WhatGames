@@ -9,6 +9,7 @@ interface IGameRepository {
 
     fun getGamesReleased(): Flow<Resource<List<Game>>>
     fun getGamesRating(): Flow<Resource<List<Game>>>
+    fun searchGames(search: String): Flow<Resource<List<Game>>>
     fun getFavoriteGame(): Flow<List<Game>>
     fun setFavoriteGame(game: Game, state: Boolean)
 

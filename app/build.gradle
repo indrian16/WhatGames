@@ -50,6 +50,7 @@ dependencies {
 
     // KTX
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
 
     // Koin
     implementation "org.koin:koin-core:2.1.6"
