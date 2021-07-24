@@ -12,6 +12,4 @@ data class GenreResponse(
     val imageBackground: String = "",
     @SerializedName("name")
     val name: String = "",
-    @SerializedName("slug")
-    val slug: String = ""
 )

@@ -3,7 +3,7 @@ package io.indrian.core.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ParentPlatform(
+data class ParentPlatformResponse(
     @SerializedName("platform")
-    val platform: Platform = Platform()
+    val platformResponse: PlatformResponse = PlatformResponse()
 )
