@@ -1,8 +1,11 @@
 package io.indrian.core.utils
 
 import io.indrian.core.data.source.local.entity.GameEntity
+import io.indrian.core.data.source.local.entity.GenreEntity
 import io.indrian.core.data.source.remote.response.GameResponse
+import io.indrian.core.data.source.remote.response.GenreResponse
 import io.indrian.core.domain.model.Game
+import io.indrian.core.domain.model.Genre
 import java.util.*
 
 object DataMapper {
@@ -11,7 +14,7 @@ object DataMapper {
         return input.map {
             GameEntity(
                 backgroundImage = it.backgroundImage,
-                genres = listOf(),
+                genres = it.genreResponses.map { genre -> genre.id },
                 id = it.id,
                 name = it.name,
                 updated = Date()
@@ -19,11 +22,25 @@ object DataMapper {
         }
     }
 
-    fun mapEntitiesToDomain(input: List<GameEntity>): List<Game> {
+    fun mapEntitiesToDomain(input: List<GameEntity>, genresEntity: List<GenreEntity>): List<Game> {
         return input.map {
+            val genres = mutableListOf<Genre>()
+            it.genres.forEach { id ->
+                val newGenres = genresEntity.filter { filter -> filter.id == id }
+                newGenres.forEach { newGenre ->
+                    genres.add(
+                        Genre(
+                            id = newGenre.id,
+                            gamesCount = newGenre.gamesCount,
+                            imageBackground = newGenre.imageBackground,
+                            name = newGenre.name
+                        )
+                    )
+                }
+            }
             Game(
                 backgroundImage = it.backgroundImage ?: "",
-                genres = listOf(),
+                genres = genres,
                 id = it.id,
                 name = it.name,
                 updated = Date()
@@ -39,5 +56,16 @@ object DataMapper {
             name = input.name,
             updated = Date()
         )
+    }
+
+    fun mapGenreResponseToEntities(input: List<GenreResponse>): List<GenreEntity> {
+        return input.map {
+            GenreEntity(
+                id = it.id,
+                gamesCount = it.gamesCount,
+                imageBackground = it.imageBackground,
+                name = it.name,
+            )
+        }
     }
 }

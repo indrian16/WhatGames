@@ -9,7 +9,9 @@ import io.indrian.core.domain.repository.IGameRepository
 import io.indrian.core.utils.AppExecutors
 import io.indrian.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 
 class GameRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -20,8 +22,9 @@ class GameRepository(
     override fun getGamesReleased(): Flow<Resource<List<Game>>> =
         object : NetworkBoundResource<List<Game>, List<GameResponse>>() {
             override fun loadFromDB(): Flow<List<Game>> {
+                val genres = localDataSource.getGenres()
                 return localDataSource.getGamesReleased().map {
-                    DataMapper.mapEntitiesToDomain(it)
+                    DataMapper.mapEntitiesToDomain(it, genres.first())
                 }
             }
 
@@ -30,6 +33,16 @@ class GameRepository(
             override suspend fun createCall(): Flow<ApiResponse<List<GameResponse>>> = remoteDataSource.getGamesReleased()
 
             override suspend fun saveCallResult(data: List<GameResponse>) {
+                data.forEach {
+                    appExecutors.diskIO().execute {
+                        localDataSource.insertGenres(
+                            DataMapper.mapGenreResponseToEntities(
+                                it.genreResponses
+                            )
+                        )
+                    }
+                }
+
                 val entities = DataMapper.mapResponseToEntities(data)
                 localDataSource.insertGames(
                     entities.map { it.copy(ordering = "released") }
@@ -41,7 +54,7 @@ class GameRepository(
         object : NetworkBoundResource<List<Game>, List<GameResponse>>() {
             override fun loadFromDB(): Flow<List<Game>> {
                 return localDataSource.getGamesRating().map {
-                    DataMapper.mapEntitiesToDomain(it)
+                    DataMapper.mapEntitiesToDomain(it, listOf())
                 }
             }
 
@@ -50,6 +63,17 @@ class GameRepository(
             override suspend fun createCall(): Flow<ApiResponse<List<GameResponse>>> = remoteDataSource.getGamesRating()
 
             override suspend fun saveCallResult(data: List<GameResponse>) {
+                data.forEach {
+                    Timber.d("test: ${it.genreResponses}")
+                    appExecutors.diskIO().execute {
+                        localDataSource.insertGenres(
+                            DataMapper.mapGenreResponseToEntities(
+                                it.genreResponses
+                            )
+                        )
+                    }
+                }
+
                 val entities = DataMapper.mapResponseToEntities(data)
                 localDataSource.insertGames(
                     entities.map { it.copy(ordering = "rating") }
@@ -59,7 +83,7 @@ class GameRepository(
 
     override fun getFavoriteGame(): Flow<List<Game>> {
         return localDataSource.getFavoriteGames().map {
-            DataMapper.mapEntitiesToDomain(it)
+            DataMapper.mapEntitiesToDomain(it, listOf())
         }
     }
 

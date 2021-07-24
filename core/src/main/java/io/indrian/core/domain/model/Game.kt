@@ -6,7 +6,7 @@ data class Game(
     val id: Int = 0,
     val backgroundImage: String = "",
     val descriptionRaw: String = "",
-    val genres: List<Int> = listOf(),
+    val genres: List<Genre> = listOf(),
     val name: String = "",
     val platforms: List<Int> = listOf(),
     val updated: Date = Date(),

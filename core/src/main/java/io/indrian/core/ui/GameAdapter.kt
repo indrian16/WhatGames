@@ -1,6 +1,5 @@
 package io.indrian.core.ui
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -40,7 +39,7 @@ class GameAdapter : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
             with(itemBinding) {
                 tvTitle.text = game.name
                 if (game.genres.isNotEmpty()) {
-                    tvGenre.text = game.genres.first().toString()
+                    tvGenre.text = game.genres.first().name
                 }
                 GlideApp.with(root)
                     .load(game.backgroundImage)
