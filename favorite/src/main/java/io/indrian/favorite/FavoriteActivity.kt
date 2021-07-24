@@ -1,8 +1,8 @@
 package io.indrian.favorite
 
 import android.os.Bundle
+import io.indrian.core.ui.GameAdapter
 import io.indrian.favorite.databinding.ActivityFavoriteBinding
-import io.indrian.whatgames.adapter.GameAdapter
 import io.indrian.whatgames.ui.base.BaseActivity
 
 class FavoriteActivity : BaseActivity() {

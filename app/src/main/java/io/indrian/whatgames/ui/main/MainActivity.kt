@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import io.indrian.core.data.Resource
 import io.indrian.core.domain.model.Game
-import io.indrian.whatgames.adapter.GameAdapter
-import io.indrian.whatgames.adapter.GenreAdapter
+import io.indrian.core.ui.GameAdapter
+import io.indrian.core.ui.GenreAdapter
 import io.indrian.whatgames.databinding.ActivityMainBinding
 import io.indrian.whatgames.ui.base.BaseActivity
 import io.indrian.whatgames.ui.search.SearchActivity
@@ -24,9 +24,17 @@ class MainActivity : BaseActivity() {
 
     private val gameObserver = Observer<Resource<List<Game>>> { state ->
         when (state) {
-            is Resource.Loading -> {}
-            is Resource.Success -> {}
-            is Resource.Error -> {}
+            is Resource.Loading -> {
+                binding.swipeLayout.isRefreshing = true
+            }
+            is Resource.Success -> {
+                binding.swipeLayout.isRefreshing = false
+
+                gameAdapter.add(state.data)
+            }
+            is Resource.Error -> {
+                binding.swipeLayout.isRefreshing = false
+            }
         }
     }
 

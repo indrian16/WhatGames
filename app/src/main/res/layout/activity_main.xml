@@ -1,137 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    android:id="@+id/swipe_layout">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/image_logo"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="16dp"
-            android:contentDescription="@string/search_image"
-            android:src="@drawable/ic_game_console"
-            app:layout_constraintBottom_toBottomOf="@+id/card_user"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/card_user"
-            />
-
-        <ImageView
-            android:id="@+id/image_favorite"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="24dp"
-            android:contentDescription="@string/search_image"
-            android:src="@drawable/ic_love_outlined"
-            app:layout_constraintBottom_toBottomOf="@+id/image_logo"
-            app:layout_constraintStart_toEndOf="@+id/image_logo"
-            app:layout_constraintTop_toTopOf="@+id/image_logo" />
-
-        <ImageView
-            android:id="@+id/image_search"
-            android:layout_width="27dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="16dp"
-            android:contentDescription="@string/search_image"
-            android:src="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@+id/image_favorite"
-            app:layout_constraintStart_toEndOf="@+id/image_favorite"
-            app:layout_constraintTop_toTopOf="@+id/image_favorite" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_user"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_margin="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardBackgroundColor="@color/color_primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:targetApi="lollipop">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:id="@+id/image_logo"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/search_image"
+                android:src="@drawable/ic_game_console"
+                app:layout_constraintBottom_toBottomOf="@+id/card_user"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/card_user"
+                />
+
+            <ImageView
+                android:id="@+id/image_favorite"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="24dp"
+                android:contentDescription="@string/search_image"
+                android:src="@drawable/ic_love_outlined"
+                app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+                app:layout_constraintStart_toEndOf="@+id/image_logo"
+                app:layout_constraintTop_toTopOf="@+id/image_logo" />
+
+            <ImageView
+                android:id="@+id/image_search"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/search_image"
+                android:src="@drawable/ic_search"
+                app:layout_constraintBottom_toBottomOf="@+id/image_favorite"
+                app:layout_constraintStart_toEndOf="@+id/image_favorite"
+                app:layout_constraintTop_toTopOf="@+id/image_favorite" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_user"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_margin="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/color_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="lollipop">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/profile_user"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_gamer" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                style="@style/TextAppearance.MdcTypographyStyles.Headline5"
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/profile_user"
-                android:padding="8dp"
-                android:src="@drawable/ic_gamer" />
+                android:layout_marginTop="32dp"
+                android:text="@string/app_name"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/card_user"
+                app:layout_constraintStart_toStartOf="@+id/image_logo"
+                app:layout_constraintTop_toBottomOf="@+id/image_logo" />
 
-        </com.google.android.material.card.MaterialCardView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_genres"
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/genre_item_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
-        <TextView
-            style="@style/TextAppearance.MdcTypographyStyles.Headline5"
-            android:id="@+id/tv_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/app_name"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/card_user"
-            app:layout_constraintStart_toStartOf="@+id/image_logo"
-            app:layout_constraintTop_toBottomOf="@+id/image_logo" />
+            <TextView
+                android:id="@+id/tv_released"
+                style="@style/TextAppearance.MdcTypographyStyles.Headline6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/released"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/rv_genres" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_genres"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/genre_item_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_released"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_released"
+                tools:listitem="@layout/game_item_layout" />
 
-        <TextView
-            android:id="@+id/tv_released"
-            style="@style/TextAppearance.MdcTypographyStyles.Headline6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/released"
-            app:layout_constraintEnd_toEndOf="@+id/tv_title"
-            app:layout_constraintStart_toStartOf="@+id/tv_title"
-            app:layout_constraintTop_toBottomOf="@+id/rv_genres" />
+            <TextView
+                android:id="@+id/tv_rating"
+                style="@style/TextAppearance.MdcTypographyStyles.Headline6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/rating"
+                app:layout_constraintEnd_toEndOf="@+id/tv_released"
+                app:layout_constraintStart_toStartOf="@+id/tv_released"
+                app:layout_constraintTop_toBottomOf="@+id/rv_released" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_released"
-            android:layout_width="0dp"
-            android:layout_height="250dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_released"
-            tools:listitem="@layout/game_item_layout" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_rating"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_rating"
+                tools:listitem="@layout/game_item_layout" />
 
-        <TextView
-            android:id="@+id/tv_rating"
-            style="@style/TextAppearance.MdcTypographyStyles.Headline6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/rating"
-            app:layout_constraintEnd_toEndOf="@+id/tv_released"
-            app:layout_constraintStart_toStartOf="@+id/tv_released"
-            app:layout_constraintTop_toBottomOf="@+id/rv_released" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_rating"
-            android:layout_width="0dp"
-            android:layout_height="250dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_rating"
-            tools:listitem="@layout/game_item_layout" />
+    </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

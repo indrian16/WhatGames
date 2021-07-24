@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WhatGames</string>
+    <string name="search_image">Search Image</string>
+    <string name="profile_user">Profile User</string>
+    <string name="genre"># Genre</string>
+    <string name="released">Released</string>
+    <string name="image_game">Image Game</string>
+    <string name="title_game">Title Game</string>
+    <string name="rating">Rating</string>
+    <string name="backdrop_image">Backdrop Image</string>
+    <string name="date">Date</string>
+    <string name="overview">Overview</string>
+    <string name="image_back">Image Back</string>
+    <string name="add_favorite">Add Favorite</string>
+    <string name="share_it">Share It</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="search">Search</string>
+</resources>

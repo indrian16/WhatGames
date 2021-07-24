@@ -3,7 +3,7 @@ package io.indrian.whatgames.ui.search
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import io.indrian.whatgames.adapter.GameAdapter
+import io.indrian.core.ui.GameAdapter
 import io.indrian.whatgames.databinding.ActivitySearchBinding
 import io.indrian.whatgames.ui.base.BaseActivity
 

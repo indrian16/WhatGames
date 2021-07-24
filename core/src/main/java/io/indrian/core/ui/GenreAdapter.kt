@@ -1,9 +1,9 @@
-package io.indrian.whatgames.adapter
+package io.indrian.core.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import io.indrian.whatgames.databinding.GenreItemLayoutBinding
+import io.indrian.core.databinding.GenreItemLayoutBinding
 
 class GenreAdapter : RecyclerView.Adapter<GenreAdapter.ViewHolder>() {
 
