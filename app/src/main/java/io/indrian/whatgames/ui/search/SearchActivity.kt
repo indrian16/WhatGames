@@ -3,10 +3,8 @@ package io.indrian.whatgames.ui.search
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import io.indrian.core.data.Resource
-import io.indrian.core.domain.model.Game
 import io.indrian.core.ui.GameAdapter
 import io.indrian.core.utils.textChanges
 import io.indrian.whatgames.databinding.ActivitySearchBinding
