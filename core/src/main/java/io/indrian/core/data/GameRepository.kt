@@ -135,6 +135,7 @@ class GameRepository(
                 localDataSource.insertGames(
                     entities.map {
                         it.copy(
+                            ordering = localDataSource.getDetailsGame(it.id).first()?.ordering ?: "",
                             isFavorite = localDataSource.getDetailsGame(it.id).first()?.isFavorite ?: false
                         )
                     }
