@@ -14,7 +14,6 @@ val repositoryModule = module {
     single<IGameRepository> {
         GameRepository(
             get(),
-            get(),
             get()
         )
     }

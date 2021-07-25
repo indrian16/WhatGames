@@ -7,7 +7,6 @@ import io.indrian.core.data.source.remote.response.GameResponse
 import io.indrian.core.data.source.remote.response.GenreResponse
 import io.indrian.core.domain.model.Game
 import io.indrian.core.domain.model.Genre
-import timber.log.Timber
 
 object DataMapper {
 
@@ -25,7 +24,8 @@ object DataMapper {
                 },
                 id = it.id,
                 name = it.name,
-                updated = it.updated.toDate()
+                updated = it.updated.toDate(),
+                isFavorite = false
             )
         }
     }
@@ -37,7 +37,7 @@ object DataMapper {
                 genres = it.genreResponses.map { genre -> genre.id },
                 id = it.id,
                 name = it.name,
-                updated = it.updated.toDate()
+                updated = it.updated.toDate(),
             )
         }
     }
@@ -50,7 +50,8 @@ object DataMapper {
             name = input.name,
             updated = input.updated.toDate(),
             descriptionRaw = input.descriptionRaw,
-            website = ""
+            website = input.website,
+            isFavorite = false
         )
     }
 
@@ -76,7 +77,9 @@ object DataMapper {
                 id = it.id,
                 name = it.name,
                 updated = it.updated,
-                descriptionRaw = it.descriptionRaw
+                descriptionRaw = it.descriptionRaw,
+                website = it.website,
+                isFavorite = it.isFavorite ?: false
             )
         }
     }
@@ -102,7 +105,9 @@ object DataMapper {
             id = input.id,
             name = input.name,
             updated = input.updated,
-            descriptionRaw = input.descriptionRaw
+            descriptionRaw = input.descriptionRaw,
+            website = input.website,
+            isFavorite = input.isFavorite ?: false
         )
     }
 
@@ -113,7 +118,8 @@ object DataMapper {
             id = input.id,
             name = input.name,
             updated = input.updated,
-            descriptionRaw = input.descriptionRaw
+            descriptionRaw = input.descriptionRaw,
+            isFavorite = input.isFavorite
         )
     }
 
@@ -123,7 +129,7 @@ object DataMapper {
                 id = it.id,
                 gamesCount = it.gamesCount,
                 imageBackground = it.imageBackground,
-                name = it.name,
+                name = it.name
             )
         }
     }

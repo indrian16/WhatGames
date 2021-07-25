@@ -1,8 +1,11 @@
 package io.indrian.whatgames.ui.detail
 
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import io.indrian.core.data.Resource
 import io.indrian.core.di.GlideApp
@@ -13,6 +16,7 @@ import io.indrian.whatgames.databinding.ActivityDetailBinding
 import io.indrian.whatgames.ui.base.BaseActivity
 import io.indrian.whatgames.ui.search.SearchActivity
 import org.koin.android.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class DetailActivity : BaseActivity() {
 
@@ -42,6 +46,7 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun displayGame(game: Game? = Game()) {
+        Timber.d("displayGame: $game")
         with(binding) {
             GlideApp.with(this@DetailActivity)
                 .load(game?.backgroundImage)
@@ -56,7 +61,57 @@ class DetailActivity : BaseActivity() {
             } else {
                 game?.descriptionRaw ?: "-"
             }
+
+            // Game Listener
+            cardMainLayout.btnFavorite.isEnabled = game != null
+            if (game?.isFavorite == true) {
+                cardMainLayout.btnFavorite.setImageResource(R.drawable.ic_love_filled)
+            } else {
+                cardMainLayout.btnFavorite.setImageResource(R.drawable.ic_love_outlined)
+            }
+
+            cardMainLayout.btnFavorite.setOnClickListener {
+                if (game != null) {
+                    viewModel.setFavorite(game.id)
+                }
+            }
+
+            cardMainLayout.btnVisit.isEnabled = !game?.website.isNullOrEmpty()
+            cardMainLayout.btnVisit.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(game?.website)
+                    )
+                )
+            }
+
+            cardMainLayout.btnShareIt.isEnabled = !game?.descriptionRaw.isNullOrEmpty()
+            cardMainLayout.btnShareIt.setOnClickListener {
+                if (game?.name?.isNotEmpty() == true && game.descriptionRaw.isNotEmpty()) {
+                    shareIt(game.name, game.descriptionRaw)
+                }
+            }
         }
+    }
+
+    /**
+     * Share Information:
+     * Title
+     *
+     * Overview
+     * Text Body
+     * */
+    private fun shareIt(title: String, overview: String) {
+        val text = "$title\n\n${getString(R.string.overview)}\n$overview"
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, text)
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, "${getString(R.string.share_it)} $title ?")
+        startActivity(shareIntent)
     }
 
     override fun setupBinding() {

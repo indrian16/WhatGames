@@ -14,7 +14,7 @@ interface GameDao {
     fun getGamesRating(): Flow<List<GameEntity>>
 
     @Query("SELECT * FROM games WHERE id = :id")
-    fun getDetailsGame(id: Int): Flow<GameEntity>
+    fun getDetailsGame(id: Int): Flow<GameEntity?>
 
     @Query("SELECT * FROM games WHERE is_favorite = 1")
     fun getFavoriteGames(): Flow<List<GameEntity>>
@@ -26,5 +26,5 @@ interface GameDao {
     suspend fun insertGame(game: GameEntity)
 
     @Update
-    fun updateFavoriteGame(gameEntity: GameEntity)
+    suspend fun updateFavoriteGame(gameEntity: GameEntity)
 }

@@ -1,6 +1,7 @@
 package io.indrian.core.data
 
 import io.indrian.core.data.source.local.LocalDataSource
+import io.indrian.core.data.source.local.entity.GameEntity
 import io.indrian.core.data.source.remote.RemoteDataSource
 import io.indrian.core.data.source.remote.network.ApiResponse
 import io.indrian.core.data.source.remote.response.GameDetailsResponse
@@ -9,7 +10,6 @@ import io.indrian.core.data.source.remote.response.GenreResponse
 import io.indrian.core.domain.model.Game
 import io.indrian.core.domain.model.Genre
 import io.indrian.core.domain.repository.IGameRepository
-import io.indrian.core.utils.AppExecutors
 import io.indrian.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.map
 class GameRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
-    private val appExecutors: AppExecutors
 ) : IGameRepository {
 
     override fun getGamesReleased(): Flow<Resource<List<Game>>> =
@@ -45,7 +44,12 @@ class GameRepository(
 
                 val entities = DataMapper.mapResponseToEntities(data)
                 localDataSource.insertGames(
-                    entities.map { it.copy(ordering = "released") }
+                    entities.map {
+                        it.copy(
+                            ordering = "released",
+                            isFavorite = localDataSource.getDetailsGame(it.id).first()?.isFavorite ?: false
+                        )
+                    }
                 )
             }
         }.asFlow()
@@ -74,7 +78,12 @@ class GameRepository(
 
                 val entities = DataMapper.mapResponseToEntities(data)
                 localDataSource.insertGames(
-                    entities.map { it.copy(ordering = "rating") }
+                    entities.map {
+                        it.copy(
+                            ordering = "rating",
+                            isFavorite = localDataSource.getDetailsGame(it.id).first()?.isFavorite ?: false
+                        )
+                    }
                 )
             }
         }.asFlow()
@@ -84,7 +93,7 @@ class GameRepository(
             override fun loadFromDB(): Flow<Game> {
                 val genres = localDataSource.getGenres()
                 return localDataSource.getDetailsGame(id).map {
-                    DataMapper.mapEntityToDomain(it, genres.first())
+                    DataMapper.mapEntityToDomain(it ?: GameEntity(), genres.first())
                 }
             }
 
@@ -102,7 +111,8 @@ class GameRepository(
                 val entity = DataMapper.mapResponseToEntity(data)
                 localDataSource.insertGame(
                     entity.copy(
-                        ordering = localDataSource.getDetailsGame(id).first().ordering
+                        ordering = localDataSource.getDetailsGame(id).first()?.ordering ?: "",
+                        isFavorite = localDataSource.getDetailsGame(id).first()?.isFavorite ?: false
                     )
                 )
             }
@@ -122,7 +132,13 @@ class GameRepository(
                 }
 
                 val entities = DataMapper.mapResponseToEntities(data)
-                localDataSource.insertGames(entities)
+                localDataSource.insertGames(
+                    entities.map {
+                        it.copy(
+                            isFavorite = localDataSource.getDetailsGame(it.id).first()?.isFavorite ?: false
+                        )
+                    }
+                )
                 return DataMapper.mapResponseToDomain(data)
             }
         }.asFlow()
@@ -133,9 +149,8 @@ class GameRepository(
         }
     }
 
-    override fun setFavoriteGame(game: Game, state: Boolean) {
-        val entity = DataMapper.mapDomainToEntity(game)
-        appExecutors.diskIO().execute { localDataSource.setFavoriteGame(entity, state) }
+    override suspend fun setFavoriteGame(id: Int) {
+        localDataSource.setFavoriteGame(id)
     }
 
     override fun getGenres(): Flow<Resource<List<Genre>>> =
