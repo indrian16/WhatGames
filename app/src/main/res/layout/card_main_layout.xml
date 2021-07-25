@@ -20,14 +20,14 @@
             app:layout_constraintGuide_begin="250dp" />
 
         <TextView
-            style="@style/TextAppearance.MdcTypographyStyles.Subtitle2"
             android:id="@+id/tv_date"
-            android:layout_width="100dp"
+            style="@style/TextAppearance.MdcTypographyStyles.Subtitle2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
             android:text="@string/date"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline_top" />
 

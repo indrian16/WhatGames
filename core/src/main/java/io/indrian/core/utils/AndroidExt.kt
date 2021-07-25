@@ -1,5 +1,6 @@
 package io.indrian.core.utils
 
+import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
@@ -8,6 +9,9 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.onStart
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 @ExperimentalCoroutinesApi
 fun EditText.textChanges(): Flow<CharSequence?> {
@@ -22,4 +26,22 @@ fun EditText.textChanges(): Flow<CharSequence?> {
         addTextChangedListener(listener)
         awaitClose { removeTextChangedListener(listener) }
     }.onStart { emit(text) }
+}
+
+fun Date.displayDate(): String {
+    return try {
+        SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault()).format(this)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        "Invalid Date"
+    }
+}
+
+fun String.toDate(): Date {
+    return try {
+        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(this) ?: Date()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        Date()
+    }
 }

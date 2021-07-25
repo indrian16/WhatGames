@@ -5,21 +5,23 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import io.indrian.core.data.Resource
+import io.indrian.core.domain.model.Game
 import io.indrian.core.ui.GameAdapter
 import io.indrian.core.utils.textChanges
 import io.indrian.whatgames.databinding.ActivitySearchBinding
 import io.indrian.whatgames.ui.base.BaseActivity
+import io.indrian.whatgames.ui.detail.DetailActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class SearchActivity : BaseActivity() {
+class SearchActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
 
     private var _binding: ActivitySearchBinding? = null
     private val binding: ActivitySearchBinding get() = _binding!!
 
-    private val gameAdapter = GameAdapter()
+    private val gameAdapter = GameAdapter(this)
 
     private val viewModel: SearchViewModel by viewModel()
 
@@ -58,6 +60,10 @@ class SearchActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onClickGame(game: Game) {
+        DetailActivity.push(this, game)
     }
 
     companion object {

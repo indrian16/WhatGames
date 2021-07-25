@@ -3,6 +3,7 @@ package io.indrian.core.data
 import io.indrian.core.data.source.local.LocalDataSource
 import io.indrian.core.data.source.remote.RemoteDataSource
 import io.indrian.core.data.source.remote.network.ApiResponse
+import io.indrian.core.data.source.remote.response.GameDetailsResponse
 import io.indrian.core.data.source.remote.response.GameResponse
 import io.indrian.core.data.source.remote.response.GenreResponse
 import io.indrian.core.domain.model.Game
@@ -78,11 +79,50 @@ class GameRepository(
             }
         }.asFlow()
 
+    override fun getDetailsGames(id: Int): Flow<Resource<Game>> =
+        object : NetworkBoundResource<Game, GameDetailsResponse>() {
+            override fun loadFromDB(): Flow<Game> {
+                val genres = localDataSource.getGenres()
+                return localDataSource.getDetailsGame(id).map {
+                    DataMapper.mapEntityToDomain(it, genres.first())
+                }
+            }
+
+            override fun shouldFetch(data: Game?): Boolean = true
+
+            override suspend fun createCall(): Flow<ApiResponse<GameDetailsResponse>> = remoteDataSource.getGameDetails(id)
+
+            override suspend fun saveCallResult(data: GameDetailsResponse) {
+                localDataSource.insertGenres(
+                    DataMapper.mapGenreResponseToEntities(
+                        data.genres
+                    )
+                )
+
+                val entity = DataMapper.mapResponseToEntity(data)
+                localDataSource.insertGame(
+                    entity.copy(
+                        ordering = localDataSource.getDetailsGame(id).first().ordering
+                    )
+                )
+            }
+        }.asFlow()
+
     override fun searchGames(search: String): Flow<Resource<List<Game>>> =
         object : OnlyNetworkBoundResource<List<Game>, List<GameResponse>>() {
             override suspend fun createCall(): Flow<ApiResponse<List<GameResponse>>> = remoteDataSource.searchGames(search)
 
             override suspend fun resultCall(data: List<GameResponse>): List<Game> {
+                data.forEach {
+                    localDataSource.insertGenres(
+                        DataMapper.mapGenreResponseToEntities(
+                            it.genreResponses
+                        )
+                    )
+                }
+
+                val entities = DataMapper.mapResponseToEntities(data)
+                localDataSource.insertGames(entities)
                 return DataMapper.mapResponseToDomain(data)
             }
         }.asFlow()

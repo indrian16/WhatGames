@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface GenreDao {
-    @Query("SELECT * FROM genres ORDER BY games_count ASC")
+    @Query("SELECT * FROM genres ORDER BY games_count DESC")
     fun getGenres(): Flow<List<GenreEntity>>
 
     @Query("SELECT * FROM genres WHERE id = :id")

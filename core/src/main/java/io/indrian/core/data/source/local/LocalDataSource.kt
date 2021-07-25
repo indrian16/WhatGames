@@ -10,7 +10,10 @@ class LocalDataSource(private val appDatabase: AppDatabase) {
     fun getGamesReleased() = appDatabase.gameDao().getGamesReleased()
     fun getGamesRating() = appDatabase.gameDao().getGamesRating()
     fun getFavoriteGames() = appDatabase.gameDao().getFavoriteGames()
+    fun getDetailsGame(id: Int) = appDatabase.gameDao().getDetailsGame(id)
+
     suspend fun insertGames(games: List<GameEntity>) = appDatabase.gameDao().insertGames(games)
+    suspend fun insertGame(game: GameEntity) = appDatabase.gameDao().insertGame(game)
     fun setFavoriteGame(gameEntity: GameEntity, newState: Boolean) {
         gameEntity.isFavorite = newState
         appDatabase.gameDao().updateFavoriteGame(gameEntity)

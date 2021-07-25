@@ -2,11 +2,12 @@ package io.indrian.core.utils
 
 import io.indrian.core.data.source.local.entity.GameEntity
 import io.indrian.core.data.source.local.entity.GenreEntity
+import io.indrian.core.data.source.remote.response.GameDetailsResponse
 import io.indrian.core.data.source.remote.response.GameResponse
 import io.indrian.core.data.source.remote.response.GenreResponse
 import io.indrian.core.domain.model.Game
 import io.indrian.core.domain.model.Genre
-import java.util.*
+import timber.log.Timber
 
 object DataMapper {
 
@@ -24,7 +25,7 @@ object DataMapper {
                 },
                 id = it.id,
                 name = it.name,
-                updated = Date()
+                updated = it.updated.toDate()
             )
         }
     }
@@ -36,9 +37,21 @@ object DataMapper {
                 genres = it.genreResponses.map { genre -> genre.id },
                 id = it.id,
                 name = it.name,
-                updated = Date()
+                updated = it.updated.toDate()
             )
         }
+    }
+
+    fun mapResponseToEntity(input: GameDetailsResponse): GameEntity {
+        return GameEntity(
+            backgroundImage = input.backgroundImage,
+            genres = input.genres.map { genre -> genre.id },
+            id = input.id,
+            name = input.name,
+            updated = input.updated.toDate(),
+            descriptionRaw = input.descriptionRaw,
+            website = ""
+        )
     }
 
     fun mapEntitiesToDomain(input: List<GameEntity>, genresEntity: List<GenreEntity>): List<Game> {
@@ -62,9 +75,35 @@ object DataMapper {
                 genres = genres,
                 id = it.id,
                 name = it.name,
-                updated = Date()
+                updated = it.updated,
+                descriptionRaw = it.descriptionRaw
             )
         }
+    }
+
+    fun mapEntityToDomain(input: GameEntity, genresEntity: List<GenreEntity>? = arrayListOf()): Game {
+        val genres = mutableListOf<Genre>()
+        input.genres.forEach { id ->
+            val newGenres = genresEntity?.filter { filter -> filter.id == id }
+            newGenres?.forEach { newGenre ->
+                genres.add(
+                    Genre(
+                        id = newGenre.id,
+                        gamesCount = newGenre.gamesCount,
+                        imageBackground = newGenre.imageBackground,
+                        name = newGenre.name
+                    )
+                )
+            }
+        }
+        return Game(
+            backgroundImage = input.backgroundImage ?: "",
+            genres = genres,
+            id = input.id,
+            name = input.name,
+            updated = input.updated,
+            descriptionRaw = input.descriptionRaw
+        )
     }
 
     fun mapDomainToEntity(input: Game): GameEntity {
@@ -73,7 +112,8 @@ object DataMapper {
             genres = listOf(),
             id = input.id,
             name = input.name,
-            updated = Date()
+            updated = input.updated,
+            descriptionRaw = input.descriptionRaw
         )
     }
 

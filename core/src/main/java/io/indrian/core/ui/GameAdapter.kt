@@ -7,7 +7,7 @@ import io.indrian.core.databinding.GameItemLayoutBinding
 import io.indrian.core.di.GlideApp
 import io.indrian.core.domain.model.Game
 
-class GameAdapter : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
+class GameAdapter(private val onGameCallbackListener: OnGameCallbackListener) : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
     private var games: List<Game> = arrayListOf()
 
@@ -32,6 +32,10 @@ class GameAdapter : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = games.size
 
+    interface OnGameCallbackListener {
+        fun onClickGame(game: Game)
+    }
+
     inner class ViewHolder(private val itemBinding: GameItemLayoutBinding) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(game: Game) {
             with(itemBinding) {
@@ -44,8 +48,7 @@ class GameAdapter : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
                     .into(imageGame)
 
                 cardGame.setOnClickListener {
-//                    val intent = Intent(itemBinding.root.context, DetailActivity::class.java)
-//                    itemBinding.root.context.startActivity(intent)
+                    onGameCallbackListener.onClickGame(game)
                 }
             }
         }

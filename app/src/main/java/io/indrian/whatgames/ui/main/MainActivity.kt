@@ -10,17 +10,18 @@ import io.indrian.core.ui.GameAdapter
 import io.indrian.core.ui.GenreAdapter
 import io.indrian.whatgames.databinding.ActivityMainBinding
 import io.indrian.whatgames.ui.base.BaseActivity
+import io.indrian.whatgames.ui.detail.DetailActivity
 import io.indrian.whatgames.ui.search.SearchActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
 
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding get() = _binding!!
 
     private val genreAdapter = GenreAdapter()
-    private val gameReleasedAdapter = GameAdapter()
-    private val gameRatingAdapter = GameAdapter()
+    private val gameReleasedAdapter = GameAdapter(this)
+    private val gameRatingAdapter = GameAdapter(this)
 
     private val viewModel: MainViewModel by viewModel()
 
@@ -82,6 +83,10 @@ class MainActivity : BaseActivity() {
             }
             imageSearch.setOnClickListener { SearchActivity.push(this@MainActivity) }
         }
+    }
+
+    override fun onClickGame(game: Game) {
+        DetailActivity.push(this, game)
     }
 
     override fun onDestroy() {

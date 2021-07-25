@@ -1,7 +1,10 @@
 package io.indrian.core.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
+@Parcelize
 data class Game(
     val id: Int = 0,
     val backgroundImage: String? = "",
@@ -12,4 +15,4 @@ data class Game(
     val updated: Date = Date(),
     val website: String = "",
     val isFavorite: Boolean = false
-)
+): Parcelable
