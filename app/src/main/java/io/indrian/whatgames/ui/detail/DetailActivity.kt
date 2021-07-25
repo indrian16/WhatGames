@@ -1,11 +1,9 @@
 package io.indrian.whatgames.ui.detail
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import io.indrian.core.data.Resource
 import io.indrian.core.di.GlideApp
@@ -32,6 +30,7 @@ class DetailActivity : BaseActivity() {
                 displayGame(state.data)
             }
             is Resource.Error -> {}
+            else -> {}
         }
     }
 
