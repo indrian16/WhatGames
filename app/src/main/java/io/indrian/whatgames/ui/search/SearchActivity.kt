@@ -2,6 +2,7 @@ package io.indrian.whatgames.ui.search
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import io.indrian.core.data.Resource
@@ -28,6 +29,7 @@ class SearchActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.rvSearch.adapter = gameAdapter
+        binding.edtSearch.requestFocus()
     }
 
     override fun setupBinding() {
