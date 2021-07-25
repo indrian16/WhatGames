@@ -14,7 +14,7 @@
         <dist:fusing dist:include="true" />
     </dist:module>
 
-    <application>
+    <application tools:ignore="AllowBackup">
         <activity android:name=".FavoriteActivity"/>
     </application>
 

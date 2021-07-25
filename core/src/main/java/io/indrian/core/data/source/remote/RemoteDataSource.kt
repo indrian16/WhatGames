@@ -5,7 +5,6 @@ import io.indrian.core.data.source.remote.network.ApiService
 import io.indrian.core.data.source.remote.response.GameDetailsResponse
 import io.indrian.core.data.source.remote.response.GameResponse
 import io.indrian.core.data.source.remote.response.GenreResponse
-import io.indrian.core.data.source.remote.response.ListGenreResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

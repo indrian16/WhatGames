@@ -79,7 +79,7 @@ object DataMapper {
                 updated = it.updated,
                 descriptionRaw = it.descriptionRaw,
                 website = it.website,
-                isFavorite = it.isFavorite ?: false
+                isFavorite = it.isFavorite
             )
         }
     }
@@ -107,7 +107,7 @@ object DataMapper {
             updated = input.updated,
             descriptionRaw = input.descriptionRaw,
             website = input.website,
-            isFavorite = input.isFavorite ?: false
+            isFavorite = input.isFavorite
         )
     }
 

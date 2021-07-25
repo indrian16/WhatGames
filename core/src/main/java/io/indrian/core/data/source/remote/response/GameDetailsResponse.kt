@@ -14,8 +14,6 @@ data class GameDetailsResponse(
     val id: Int = 0,
     @SerializedName("name")
     val name: String = "",
-    @SerializedName("parent_platforms")
-    val parentPlatformResponses: List<ParentPlatformResponse> = listOf(),
     @SerializedName("updated")
     val updated: String = "",
     @SerializedName("website")

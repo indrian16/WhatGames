@@ -2,7 +2,6 @@ package io.indrian.whatgames.ui.search
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import io.indrian.core.data.Resource
