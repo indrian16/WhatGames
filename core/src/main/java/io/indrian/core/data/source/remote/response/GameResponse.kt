@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class GameResponse(
     @SerializedName("background_image")
-    val backgroundImage: String = "",
+    val backgroundImage: String? = "",
     @SerializedName("genres")
     val genreResponses: List<GenreResponse> = listOf(),
     @SerializedName("id")

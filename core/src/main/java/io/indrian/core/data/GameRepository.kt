@@ -12,7 +12,6 @@ import io.indrian.core.utils.AppExecutors
 import io.indrian.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class GameRepository(
@@ -30,7 +29,7 @@ class GameRepository(
                 }
             }
 
-            override fun shouldFetch(data: List<Game>?): Boolean = true
+            override fun shouldFetch(data: List<Game>?): Boolean = data == null || data.isEmpty()
 
             override suspend fun createCall(): Flow<ApiResponse<List<GameResponse>>> = remoteDataSource.getGamesReleased()
 
@@ -79,25 +78,14 @@ class GameRepository(
             }
         }.asFlow()
 
-    override fun searchGames(search: String): Flow<Resource<List<Game>>> {
-        return flow {
-            emit(Resource.Loading())
-            when (val response = remoteDataSource.searchGames(search).first()) {
-                is ApiResponse.Success -> {
-                    val entities = DataMapper.mapResponseToEntities(response.data)
-                    val domain = DataMapper.mapEntitiesToDomain(entities, arrayListOf())
-                    emit(
-                        Resource.Success(domain)
-                    )
-                }
-                is ApiResponse.Error -> {
-                    emit(
-                        Resource.Error<List<Game>>(response.errorMessage)
-                    )
-                }
+    override fun searchGames(search: String): Flow<Resource<List<Game>>> =
+        object : OnlyNetworkBoundResource<List<Game>, List<GameResponse>>() {
+            override suspend fun createCall(): Flow<ApiResponse<List<GameResponse>>> = remoteDataSource.searchGames(search)
+
+            override suspend fun resultCall(data: List<GameResponse>): List<Game> {
+                return DataMapper.mapResponseToDomain(data)
             }
-        }
-    }
+        }.asFlow()
 
     override fun getFavoriteGame(): Flow<List<Game>> {
         return localDataSource.getFavoriteGames().map {
@@ -118,7 +106,7 @@ class GameRepository(
                 }
             }
 
-            override fun shouldFetch(data: List<Genre>?): Boolean = true
+            override fun shouldFetch(data: List<Genre>?): Boolean = data == null || data.isEmpty()
 
             override suspend fun createCall(): Flow<ApiResponse<List<GenreResponse>>> = remoteDataSource.getGenres()
 

@@ -10,6 +10,25 @@ import java.util.*
 
 object DataMapper {
 
+    fun mapResponseToDomain(input: List<GameResponse>): List<Game> {
+        return input.map {
+            Game(
+                backgroundImage = it.backgroundImage,
+                genres = it.genreResponses.map { genre ->
+                    Genre(
+                        id = genre.id,
+                        gamesCount = genre.gamesCount,
+                        imageBackground = genre.imageBackground,
+                        name = genre.name,
+                    )
+                },
+                id = it.id,
+                name = it.name,
+                updated = Date()
+            )
+        }
+    }
+
     fun mapResponseToEntities(input: List<GameResponse>): List<GameEntity> {
         return input.map {
             GameEntity(

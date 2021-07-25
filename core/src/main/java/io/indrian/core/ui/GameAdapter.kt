@@ -11,11 +11,6 @@ class GameAdapter : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
     private var games: List<Game> = arrayListOf()
 
-    fun clear() {
-        this.games = listOf()
-        notifyDataSetChanged()
-    }
-
     fun add(games: List<Game>?) {
         this.games = games ?: listOf()
         notifyDataSetChanged()

@@ -26,7 +26,7 @@ interface ApiService {
     suspend fun searchGames(
         @Query("search") search: String,
         @Query("page") page: Int = 1,
-        @Query("page_size") pageSize: Int = 15,
+        @Query("page_size") pageSize: Int = 10,
     ): ListGameResponse
 
     @GET("api/games/{id}")

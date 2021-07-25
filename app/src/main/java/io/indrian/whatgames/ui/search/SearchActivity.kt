@@ -3,15 +3,18 @@ package io.indrian.whatgames.ui.search
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import io.indrian.core.data.Resource
 import io.indrian.core.domain.model.Game
 import io.indrian.core.ui.GameAdapter
+import io.indrian.core.utils.textChanges
 import io.indrian.whatgames.databinding.ActivitySearchBinding
 import io.indrian.whatgames.ui.base.BaseActivity
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class SearchActivity : BaseActivity() {
 
@@ -22,23 +25,9 @@ class SearchActivity : BaseActivity() {
 
     private val viewModel: SearchViewModel by viewModel()
 
-    private val searchGamesObserver = Observer<Resource<List<Game>>> { state ->
-        when (state) {
-            is Resource.Loading -> {
-                gameAdapter.clear()
-            }
-            is Resource.Success -> {
-                gameAdapter.add(state.data)
-            }
-            is Resource.Error -> { }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.rvSearch.adapter = gameAdapter
-
-        viewModel.searchGames.observe(this, searchGamesObserver)
     }
 
     override fun setupBinding() {
@@ -46,22 +35,30 @@ class SearchActivity : BaseActivity() {
         setContentView(binding.root)
     }
 
+    @ExperimentalCoroutinesApi
+    @FlowPreview
     override fun initListener() {
         with(binding) {
             imageBack.setOnClickListener { finish() }
 
-            edtSearch.addTextChangedListener {
-                if (it != null && it.isNotEmpty()) {
-                    Timber.d("edtSearch: $it")
-                    viewModel.searchGames(it.toString())
+            edtSearch.textChanges()
+                .filterNot { it.isNullOrBlank() }
+                .debounce(300)
+                .flatMapLatest { viewModel.search(it.toString()) }
+                .onEach {
+                    when (it) {
+                        is Resource.Success -> {
+                            gameAdapter.add(it.data)
+                        }
+                        else -> {}
+                    }
                 }
-            }
+                .launchIn(lifecycleScope)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.searchGames.removeObserver(searchGamesObserver)
         _binding = null
     }
 

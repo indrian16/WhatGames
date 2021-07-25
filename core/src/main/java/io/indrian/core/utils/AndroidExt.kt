@@ -1,44 +1,25 @@
 package io.indrian.core.utils
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.onStart
 
-fun Context.isNetworkConnected(): Boolean {
-
-    var result = false
-    val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-        val networkCapabilities = cm.activeNetwork ?: return false
-        val activeCapabilities = cm.getNetworkCapabilities(networkCapabilities) ?: return false
-
-        result = when {
-
-            activeCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            activeCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            activeCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            else -> false
-        }
-    } else {
-
-        cm.run {
-
-            this.activeNetworkInfo?.run {
-
-                result = when (type) {
-
-                    ConnectivityManager.TYPE_WIFI -> true
-                    ConnectivityManager.TYPE_MOBILE -> true
-                    ConnectivityManager.TYPE_ETHERNET -> true
-
-                    else -> false
-                }
+@ExperimentalCoroutinesApi
+fun EditText.textChanges(): Flow<CharSequence?> {
+    return callbackFlow {
+        val listener = object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) = Unit
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                trySend(s)
             }
         }
-    }
-
-    return result
+        addTextChangedListener(listener)
+        awaitClose { removeTextChangedListener(listener) }
+    }.onStart { emit(text) }
 }
