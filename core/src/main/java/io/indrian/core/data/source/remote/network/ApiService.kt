@@ -32,6 +32,6 @@ interface ApiService {
     @GET("api/games/{id}")
     suspend fun getGameDetails(@Path("id") id: Int): GameDetailsResponse?
 
-    @GET("api/games")
+    @GET("api/genres")
     suspend fun getGenres(): ListGenreResponse
 }

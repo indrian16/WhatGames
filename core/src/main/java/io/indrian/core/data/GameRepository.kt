@@ -5,13 +5,15 @@ import io.indrian.core.data.source.remote.RemoteDataSource
 import io.indrian.core.data.source.remote.network.ApiResponse
 import io.indrian.core.data.source.remote.response.GameResponse
 import io.indrian.core.data.source.remote.response.GenreResponse
-import io.indrian.core.data.source.remote.response.ListGameResponse
 import io.indrian.core.domain.model.Game
 import io.indrian.core.domain.model.Genre
 import io.indrian.core.domain.repository.IGameRepository
 import io.indrian.core.utils.AppExecutors
 import io.indrian.core.utils.DataMapper
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 class GameRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -28,7 +30,7 @@ class GameRepository(
                 }
             }
 
-            override fun shouldFetch(data: List<Game>?): Boolean = data == null || data.isEmpty()
+            override fun shouldFetch(data: List<Game>?): Boolean = true
 
             override suspend fun createCall(): Flow<ApiResponse<List<GameResponse>>> = remoteDataSource.getGamesReleased()
 
@@ -51,8 +53,9 @@ class GameRepository(
     override fun getGamesRating(): Flow<Resource<List<Game>>> =
         object : NetworkBoundResource<List<Game>, List<GameResponse>>() {
             override fun loadFromDB(): Flow<List<Game>> {
+                val genres = localDataSource.getGenres()
                 return localDataSource.getGamesRating().map {
-                    DataMapper.mapEntitiesToDomain(it, listOf())
+                    DataMapper.mapEntitiesToDomain(it, genres.first())
                 }
             }
 
@@ -115,7 +118,7 @@ class GameRepository(
                 }
             }
 
-            override fun shouldFetch(data: List<Genre>?): Boolean = data == null || data.isEmpty()
+            override fun shouldFetch(data: List<Genre>?): Boolean = true
 
             override suspend fun createCall(): Flow<ApiResponse<List<GenreResponse>>> = remoteDataSource.getGenres()
 
