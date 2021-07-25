@@ -146,7 +146,7 @@ class GameRepository(
 
     override fun getFavoriteGame(): Flow<List<Game>> {
         return localDataSource.getFavoriteGames().map {
-            DataMapper.mapEntitiesToDomain(it, listOf())
+            DataMapper.mapEntitiesToDomain(it, localDataSource.getGenres().first())
         }
     }
 

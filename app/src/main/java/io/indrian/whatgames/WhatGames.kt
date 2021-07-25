@@ -12,6 +12,12 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import timber.log.Timber
 
+/**
+ *
+ * @author INDRIAN
+ * @github https://github.com/indrian16/
+ * @email indrian16dev@gmail.com
+ * */
 class WhatGames : Application() {
     override fun onCreate() {
         super.onCreate()
