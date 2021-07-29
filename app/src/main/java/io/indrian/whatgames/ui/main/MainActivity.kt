@@ -6,10 +6,10 @@ import androidx.lifecycle.Observer
 import io.indrian.core.data.Resource
 import io.indrian.core.domain.model.Game
 import io.indrian.core.domain.model.Genre
-import io.indrian.core.ui.GameAdapter
-import io.indrian.core.ui.GenreAdapter
+import io.indrian.core.ui.adapter.GameAdapter
+import io.indrian.core.ui.adapter.GenreAdapter
 import io.indrian.whatgames.databinding.ActivityMainBinding
-import io.indrian.whatgames.ui.base.BaseActivity
+import io.indrian.core.ui.base.BaseActivity
 import io.indrian.whatgames.ui.detail.DetailActivity
 import io.indrian.whatgames.ui.search.SearchActivity
 import org.koin.android.viewmodel.ext.android.viewModel

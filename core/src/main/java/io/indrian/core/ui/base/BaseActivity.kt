@@ -1,4 +1,4 @@
-package io.indrian.whatgames.ui.base
+package io.indrian.core.ui.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -3,10 +3,10 @@ package io.indrian.favorite
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import io.indrian.core.domain.model.Game
-import io.indrian.core.ui.GameAdapter
+import io.indrian.core.ui.adapter.GameAdapter
 import io.indrian.favorite.databinding.ActivityFavoriteBinding
 import io.indrian.favorite.di.favoriteModule
-import io.indrian.whatgames.ui.base.BaseActivity
+import io.indrian.core.ui.base.BaseActivity
 import io.indrian.whatgames.ui.detail.DetailActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules

@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import io.indrian.core.data.Resource
 import io.indrian.core.domain.model.Game
-import io.indrian.core.ui.GameAdapter
+import io.indrian.core.ui.adapter.GameAdapter
 import io.indrian.core.utils.textChanges
 import io.indrian.whatgames.databinding.ActivitySearchBinding
-import io.indrian.whatgames.ui.base.BaseActivity
+import io.indrian.core.ui.base.BaseActivity
 import io.indrian.whatgames.ui.detail.DetailActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview

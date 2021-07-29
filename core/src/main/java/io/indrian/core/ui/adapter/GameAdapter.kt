@@ -1,4 +1,4 @@
-package io.indrian.core.ui
+package io.indrian.core.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

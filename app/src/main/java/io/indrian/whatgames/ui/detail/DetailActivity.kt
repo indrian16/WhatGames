@@ -11,7 +11,7 @@ import io.indrian.core.domain.model.Game
 import io.indrian.core.utils.displayDate
 import io.indrian.whatgames.R
 import io.indrian.whatgames.databinding.ActivityDetailBinding
-import io.indrian.whatgames.ui.base.BaseActivity
+import io.indrian.core.ui.base.BaseActivity
 import io.indrian.whatgames.ui.search.SearchActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
