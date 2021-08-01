@@ -67,9 +67,7 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // Koin
-    implementation "org.koin:koin-core:2.1.6"
-    implementation "org.koin:koin-android:2.1.6"
-    implementation "org.koin:koin-android-viewmodel:2.1.6"
+    implementation "io.insert-koin:koin-android:3.1.2"
 
     // Glide - Image Loader
     implementation 'com.github.bumptech.glide:glide:4.12.0'

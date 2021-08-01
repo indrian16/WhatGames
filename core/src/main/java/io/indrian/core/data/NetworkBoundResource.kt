@@ -1,3 +1,5 @@
+@file:Suppress("RemoveExplicitTypeArguments")
+
 package io.indrian.core.data
 
 import io.indrian.core.data.source.remote.network.ApiResponse

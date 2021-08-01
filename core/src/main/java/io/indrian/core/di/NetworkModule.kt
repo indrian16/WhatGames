@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection")
+
 package io.indrian.core.di
 
 import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory

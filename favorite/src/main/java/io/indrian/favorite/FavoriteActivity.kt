@@ -8,7 +8,7 @@ import io.indrian.favorite.databinding.ActivityFavoriteBinding
 import io.indrian.favorite.di.favoriteModule
 import io.indrian.core.ui.base.BaseActivity
 import io.indrian.whatgames.ui.detail.DetailActivity
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
 class FavoriteActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {

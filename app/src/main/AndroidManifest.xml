@@ -12,9 +12,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WhatGames">
+        android:theme="@style/Theme.WhatGames"
+        android:fullBackupContent="@xml/backup_descriptor">
         <activity android:name=".ui.search.SearchActivity"/>
-        <activity android:name=".ui.detail.DetailActivity" />
+        <activity android:name=".ui.detail.DetailActivity"
+            android:theme="@style/Theme.WhatGames.Detail"/>
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

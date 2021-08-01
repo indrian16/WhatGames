@@ -1,3 +1,9 @@
+@file:Suppress("SpellCheckingInspection", "SpellCheckingInspection", "SpellCheckingInspection",
+    "SpellCheckingInspection", "SpellCheckingInspection", "SpellCheckingInspection",
+    "SpellCheckingInspection", "SpellCheckingInspection", "SpellCheckingInspection",
+    "SpellCheckingInspection"
+)
+
 package io.indrian.whatgames
 
 import androidx.test.platform.app.InstrumentationRegistry

@@ -14,7 +14,7 @@ import io.indrian.core.utils.toVisible
 import io.indrian.whatgames.databinding.ActivityMainBinding
 import io.indrian.whatgames.ui.detail.DetailActivity
 import io.indrian.whatgames.ui.search.SearchActivity
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
 

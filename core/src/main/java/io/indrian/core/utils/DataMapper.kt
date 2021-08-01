@@ -111,18 +111,6 @@ object DataMapper {
         )
     }
 
-    fun mapDomainToEntity(input: Game): GameEntity {
-        return GameEntity(
-            backgroundImage = input.backgroundImage,
-            genres = listOf(),
-            id = input.id,
-            name = input.name,
-            updated = input.updated,
-            descriptionRaw = input.descriptionRaw,
-            isFavorite = input.isFavorite
-        )
-    }
-
     fun mapGenreResponseToEntities(input: List<GenreResponse>): List<GenreEntity> {
         return input.map {
             GenreEntity(

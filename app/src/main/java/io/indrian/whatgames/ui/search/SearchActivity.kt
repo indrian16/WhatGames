@@ -14,7 +14,7 @@ import io.indrian.whatgames.ui.detail.DetailActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
 

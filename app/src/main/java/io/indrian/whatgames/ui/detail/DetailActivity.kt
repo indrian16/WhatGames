@@ -13,7 +13,7 @@ import io.indrian.whatgames.R
 import io.indrian.whatgames.databinding.ActivityDetailBinding
 import io.indrian.core.ui.base.BaseActivity
 import io.indrian.whatgames.ui.search.SearchActivity
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class DetailActivity : BaseActivity() {
