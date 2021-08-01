@@ -52,8 +52,9 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:2.3.0"
     implementation 'androidx.room:room-ktx:2.3.0'
+    implementation "net.zetetic:android-database-sqlcipher:4.4.0"
+    implementation "androidx.sqlite:sqlite-ktx:2.1.0"
     kapt "androidx.room:room-compiler:2.3.0"
-    androidTestImplementation "androidx.room:room-testing:2.3.0"
 
     // Kotlin Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1"
