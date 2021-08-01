@@ -2,6 +2,7 @@ package io.indrian.whatgames.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import io.indrian.core.data.Resource
 import io.indrian.core.domain.model.Game
@@ -10,6 +11,8 @@ import io.indrian.core.ui.adapter.GameAdapter
 import io.indrian.core.ui.adapter.GenreAdapter
 import io.indrian.whatgames.databinding.ActivityMainBinding
 import io.indrian.core.ui.base.BaseActivity
+import io.indrian.core.utils.toGone
+import io.indrian.core.utils.toVisible
 import io.indrian.whatgames.ui.detail.DetailActivity
 import io.indrian.whatgames.ui.search.SearchActivity
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -27,11 +30,14 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
 
     private val gameReleasedObserver = Observer<Resource<List<Game>>> { state ->
         when (state) {
-            is Resource.Loading -> { }
+            is Resource.Loading -> {
+            }
             is Resource.Success -> {
                 gameReleasedAdapter.add(state.data)
             }
-            is Resource.Error -> { }
+            is Resource.Error -> {
+
+            }
         }
     }
 

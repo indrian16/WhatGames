@@ -2,7 +2,9 @@ package io.indrian.core.utils
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -42,4 +44,12 @@ fun String.toDate(): Date {
         e.printStackTrace()
         Date()
     }
+}
+
+fun View.toVisible() {
+    visibility = View.VISIBLE
+}
+
+fun View.toGone() {
+    visibility = View.GONE
 }

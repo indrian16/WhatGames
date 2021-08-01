@@ -27,7 +27,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                     onFetchFailed()
                     Timber.e("Resource.Error(${apiResponse.errorMessage})")
                     emit(
-                        Resource.Error<ResultType>(apiResponse.errorMessage)
+                        Resource.Error<ResultType>(apiResponse.errorMessage, null)
                     )
                 }
             }
