@@ -14,4 +14,11 @@ val databaseModule = module {
             CoreUtils.DB_NAME
         ).fallbackToDestructiveMigration().build()
     }
+
+    single {
+        get<AppDatabase>().gameDao()
+    }
+    single {
+        get<AppDatabase>().genreDao()
+    }
 }

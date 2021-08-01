@@ -7,9 +7,8 @@ import io.indrian.core.domain.repository.IGameRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single { LocalDataSource(get()) }
+    single { LocalDataSource(get(), get()) }
     single { RemoteDataSource(get()) }
-    factory { AppExecutors() }
     single<IGameRepository> {
         GameRepository(
             get(),
