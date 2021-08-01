@@ -53,7 +53,7 @@ class DetailActivity : BaseActivity() {
 
             cardMainLayout.tvDate.text = getString(R.string.display_date, game?.updated?.displayDate())
             cardMainLayout.tvTitle.text = game?.name
-            cardMainLayout.tvGenres.text = game?.genres?.joinToString(prefix = "# ", separator = ", ") { it.name }
+            cardMainLayout.tvGenres.text = game?.genres?.joinToString(prefix = "# ", separator = " , # ") { it.name }
 
             tvOverviewValue.text = if (!game?.descriptionRaw.isNullOrEmpty()) {
                 game?.descriptionRaw
