@@ -33,10 +33,14 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
             is Resource.Loading -> {
             }
             is Resource.Success -> {
+                binding.tvReleased.toVisible()
+                binding.rvReleased.toVisible()
+
                 gameReleasedAdapter.add(state.data)
             }
             is Resource.Error -> {
-
+                binding.tvReleased.toGone()
+                binding.rvReleased.toGone()
             }
         }
     }
