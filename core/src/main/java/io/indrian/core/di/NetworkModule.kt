@@ -1,5 +1,6 @@
 package io.indrian.core.di
 
+import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
 import io.indrian.core.data.source.remote.network.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,6 +30,7 @@ val networkModule = module {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.rawg.io/")
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(NetworkResponseAdapterFactory())
             .client(get())
             .build()
         retrofit.create(ApiService::class.java)

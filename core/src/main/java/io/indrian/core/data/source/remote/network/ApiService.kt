@@ -1,5 +1,7 @@
 package io.indrian.core.data.source.remote.network
 
+import com.haroldadmin.cnradapter.NetworkResponse
+import io.indrian.core.data.source.remote.response.ErrorResponse
 import io.indrian.core.data.source.remote.response.GameDetailsResponse
 import io.indrian.core.data.source.remote.response.ListGameResponse
 import io.indrian.core.data.source.remote.response.ListGenreResponse
@@ -14,24 +16,24 @@ interface ApiService {
         @Query("page") page: Int = 1,
         @Query("page_size") pageSize: Int = 10,
         @Query("dates") updated: String = "2021-01-01,2021-12-31",
-    ): ListGameResponse
+    ): NetworkResponse<ListGameResponse, ErrorResponse>
 
     @GET("api/games")
     suspend fun getGamesRating(
         @Query("page") page: Int = 1,
         @Query("page_size") pageSize: Int = 10
-    ): ListGameResponse
+    ): NetworkResponse<ListGameResponse, ErrorResponse>
 
     @GET("api/games")
     suspend fun searchGames(
         @Query("search") search: String,
         @Query("page") page: Int = 1,
         @Query("page_size") pageSize: Int = 10,
-    ): ListGameResponse
+    ): NetworkResponse<ListGameResponse, ErrorResponse>
 
     @GET("api/games/{id}")
-    suspend fun getGameDetails(@Path("id") id: Int): GameDetailsResponse?
+    suspend fun getGameDetails(@Path("id") id: Int): NetworkResponse<GameDetailsResponse, ErrorResponse>
 
     @GET("api/genres")
-    suspend fun getGenres(): ListGenreResponse
+    suspend fun getGenres(): NetworkResponse<ListGenreResponse, ErrorResponse>
 }

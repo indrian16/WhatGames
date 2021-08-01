@@ -2,6 +2,7 @@ package io.indrian.core.data
 
 import io.indrian.core.data.source.remote.network.ApiResponse
 import kotlinx.coroutines.flow.*
+import timber.log.Timber
 
 abstract class NetworkBoundResource<ResultType, RequestType> {
 
@@ -24,6 +25,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                 }
                 is ApiResponse.Error -> {
                     onFetchFailed()
+                    Timber.e("Resource.Error(${apiResponse.errorMessage})")
                     emit(
                         Resource.Error<ResultType>(apiResponse.errorMessage)
                     )

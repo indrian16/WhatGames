@@ -29,7 +29,7 @@ class GameRepository(
                 }
             }
 
-            override fun shouldFetch(data: List<Game>?): Boolean = data == null || data.isEmpty()
+            override fun shouldFetch(data: List<Game>?): Boolean = true
 
             override suspend fun createCall(): Flow<ApiResponse<List<GameResponse>>> = remoteDataSource.getGamesReleased()
 
