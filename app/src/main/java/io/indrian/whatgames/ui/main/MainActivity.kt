@@ -31,14 +31,22 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
     private val gameReleasedObserver = Observer<Resource<List<Game>>> { state ->
         when (state) {
             is Resource.Loading -> {
+                binding.shimmerReleasedGamesContainer.root.startShimmer()
+                binding.shimmerReleasedGamesContainer.root.visibility = View.VISIBLE
             }
             is Resource.Success -> {
+                binding.shimmerReleasedGamesContainer.root.startShimmer()
+                binding.shimmerReleasedGamesContainer.root.visibility = View.INVISIBLE
+
                 binding.tvReleased.toVisible()
                 binding.rvReleased.toVisible()
 
                 gameReleasedAdapter.add(state.data)
             }
             is Resource.Error -> {
+                binding.shimmerReleasedGamesContainer.root.startShimmer()
+                binding.shimmerReleasedGamesContainer.root.visibility = View.INVISIBLE
+
                 binding.tvReleased.toGone()
                 binding.rvReleased.toGone()
             }
