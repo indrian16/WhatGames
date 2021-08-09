@@ -76,6 +76,9 @@ dependencies {
     // Leak
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
+    // Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
     testImplementation 'junit:junit:4.13.2'
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

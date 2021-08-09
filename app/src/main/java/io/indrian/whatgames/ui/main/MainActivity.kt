@@ -2,6 +2,7 @@ package io.indrian.whatgames.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import io.indrian.core.data.Resource
 import io.indrian.core.domain.model.Game
@@ -56,11 +57,19 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
 
     private val genresObserver = Observer<Resource<List<Genre>>> { state ->
         when (state) {
-            is Resource.Loading -> { }
+            is Resource.Loading -> {
+                binding.shimmerGenreContainer.startShimmer()
+                binding.shimmerGenreContainer.visibility = View.VISIBLE
+            }
             is Resource.Success -> {
+                binding.shimmerGenreContainer.stopShimmer()
+                binding.shimmerGenreContainer.visibility = View.INVISIBLE
                 genreAdapter.add(state.data)
             }
-            is Resource.Error -> { }
+            is Resource.Error -> {
+                binding.shimmerGenreContainer.stopShimmer()
+                binding.shimmerGenreContainer.visibility = View.INVISIBLE
+            }
         }
     }
 

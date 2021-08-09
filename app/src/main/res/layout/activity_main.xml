@@ -77,16 +77,43 @@
             app:layout_constraintStart_toStartOf="@+id/image_logo"
             app:layout_constraintTop_toBottomOf="@+id/image_logo" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_genres"
-            android:layout_width="0dp"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_genre_container"
+            android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:shimmer_auto_start="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <include layout="@layout/genre_shimmer_item_layout" />
+
+                <include layout="@layout/genre_shimmer_item_layout" />
+
+                <include layout="@layout/genre_shimmer_item_layout" />
+
+                <include layout="@layout/genre_shimmer_item_layout" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_genres"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="@+id/shimmer_genre_container"
+            app:layout_constraintEnd_toEndOf="@+id/shimmer_genre_container"
+            app:layout_constraintStart_toStartOf="@+id/shimmer_genre_container"
+            app:layout_constraintTop_toTopOf="@+id/shimmer_genre_container"
             tools:listitem="@layout/genre_item_layout" />
 
         <TextView
@@ -99,13 +126,14 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/tv_title"
             app:layout_constraintStart_toStartOf="@+id/tv_title"
-            app:layout_constraintTop_toBottomOf="@+id/rv_genres" />
+            app:layout_constraintTop_toBottomOf="@+id/shimmer_genre_container" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_released"
             android:layout_width="0dp"
             android:layout_height="280dp"
             android:orientation="horizontal"
+
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_released"
@@ -135,13 +163,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_rating"
             tools:listitem="@layout/game_item_layout" />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier_released"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="tv_released,rv_released" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

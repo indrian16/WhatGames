@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="shadow_color">#f5f5f5</color>
     <color name="color_grey">#EEEEEE</color>
+    <color name="placeholder_color">#DDDDDD</color>
 </resources>
