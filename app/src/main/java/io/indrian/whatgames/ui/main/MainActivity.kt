@@ -58,17 +58,17 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
     private val genresObserver = Observer<Resource<List<Genre>>> { state ->
         when (state) {
             is Resource.Loading -> {
-                binding.shimmerGenreContainer.startShimmer()
-                binding.shimmerGenreContainer.visibility = View.VISIBLE
+                binding.shimmerGenreContainer.root.startShimmer()
+                binding.shimmerGenreContainer.root.visibility = View.VISIBLE
             }
             is Resource.Success -> {
-                binding.shimmerGenreContainer.stopShimmer()
-                binding.shimmerGenreContainer.visibility = View.INVISIBLE
+                binding.shimmerGenreContainer.root.stopShimmer()
+                binding.shimmerGenreContainer.root.visibility = View.INVISIBLE
                 genreAdapter.add(state.data)
             }
             is Resource.Error -> {
-                binding.shimmerGenreContainer.stopShimmer()
-                binding.shimmerGenreContainer.visibility = View.INVISIBLE
+                binding.shimmerGenreContainer.root.stopShimmer()
+                binding.shimmerGenreContainer.root.visibility = View.INVISIBLE
             }
         }
     }
