@@ -12,10 +12,10 @@ import io.indrian.core.domain.model.Game
 import io.indrian.core.domain.model.Genre
 import io.indrian.core.domain.repository.IGameRepository
 import io.indrian.core.utils.DataMapper
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
 
+@ExperimentalCoroutinesApi
 class GameRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
@@ -24,9 +24,10 @@ class GameRepository(
     override fun getGamesReleased(): Flow<Resource<List<Game>>> {
         return object : NetworkBoundResource<List<Game>, ListGameResponse, ErrorResponse>() {
             override fun loadFromDB(): Flow<List<Game>> {
-                val genres = localDataSource.getGenres()
-                return localDataSource.getGamesReleased().map {
-                    DataMapper.mapEntitiesToDomain(it, genres.first())
+                return localDataSource.getGenres().flatMapLatest { genres ->
+                    localDataSource.getGamesReleased().map {
+                        DataMapper.mapEntitiesToDomain(it, genres)
+                    }
                 }
             }
 
@@ -45,15 +46,15 @@ class GameRepository(
                     )
                 }
 
-                val entities = DataMapper.mapResponseToEntities(data.gameResponses)
-                localDataSource.insertGames(
-                    entities.map {
-                        it.copy(
-                            ordering = "released",
-                            isFavorite = localDataSource.getDetailsGame(it.id).first()?.isFavorite ?: false
-                        )
-                    }
-                )
+                val entities = DataMapper.mapResponseToEntities(data.gameResponses).map {
+                    val isFavorite = localDataSource.getDetailsGame(it.id).first()?.isFavorite ?: false
+
+                    it.copy(
+                        ordering = "released",
+                        isFavorite = isFavorite
+                    )
+                }
+                localDataSource.insertGames(entities)
             }
         }.asFlow()
     }
@@ -61,9 +62,10 @@ class GameRepository(
     override fun getGamesRating(): Flow<Resource<List<Game>>> {
         return object : NetworkBoundResource<List<Game>, ListGameResponse, ErrorResponse>() {
             override fun loadFromDB(): Flow<List<Game>> {
-                val genres = localDataSource.getGenres()
-                return localDataSource.getGamesRating().map {
-                    DataMapper.mapEntitiesToDomain(it, genres.first())
+                return localDataSource.getGenres().flatMapLatest { entities ->
+                    localDataSource.getGamesRating().map {
+                        DataMapper.mapEntitiesToDomain(it, entities)
+                    }
                 }
             }
 
@@ -84,15 +86,15 @@ class GameRepository(
                     )
                 }
 
-                val entities = DataMapper.mapResponseToEntities(data.gameResponses)
-                localDataSource.insertGames(
-                    entities.map {
-                        it.copy(
-                            ordering = "rating",
-                            isFavorite = localDataSource.getDetailsGame(it.id).first()?.isFavorite ?: false
-                        )
-                    }
-                )
+                val entities = DataMapper.mapResponseToEntities(data.gameResponses).map {
+                    val isFavorite = localDataSource.getDetailsGame(it.id).first()?.isFavorite ?: false
+
+                    it.copy(
+                        ordering = "rating",
+                        isFavorite = isFavorite
+                    )
+                }
+                localDataSource.insertGames(entities)
             }
         }.asFlow()
     }
@@ -119,13 +121,14 @@ class GameRepository(
                     )
                 )
 
-                val entity = DataMapper.mapResponseToEntity(data)
-                localDataSource.insertGame(
-                    entity.copy(
-                        ordering = localDataSource.getDetailsGame(id).first()?.ordering ?: "",
-                        isFavorite = localDataSource.getDetailsGame(id).first()?.isFavorite ?: false
-                    )
+                val ordering = localDataSource.getDetailsGame(id).first()?.ordering ?: ""
+                val isFavorite = localDataSource.getDetailsGame(id).first()?.isFavorite ?: false
+
+                val entity = DataMapper.mapResponseToEntity(data).copy(
+                    ordering = ordering,
+                    isFavorite = isFavorite
                 )
+                localDataSource.insertGame(entity)
             }
         }.asFlow()
     }
@@ -145,15 +148,17 @@ class GameRepository(
                     )
                 }
 
-                val entities = DataMapper.mapResponseToEntities(data.gameResponses)
-                localDataSource.insertGames(
-                    entities.map {
-                        it.copy(
-                            ordering = localDataSource.getDetailsGame(it.id).first()?.ordering ?: "",
-                            isFavorite = localDataSource.getDetailsGame(it.id).first()?.isFavorite ?: false
-                        )
-                    }
-                )
+                val entities = DataMapper.mapResponseToEntities(data.gameResponses).map {
+                    val ordering = localDataSource.getDetailsGame(it.id).first()?.ordering ?: ""
+                    val isFavorite = localDataSource.getDetailsGame(it.id).first()?.isFavorite ?: false
+
+                    it.copy(
+                        ordering = ordering,
+                        isFavorite = isFavorite
+                    )
+                }
+                localDataSource.insertGames(entities)
+
                 return DataMapper.mapResponseToDomain(data.gameResponses)
             }
         }.asFlow()
