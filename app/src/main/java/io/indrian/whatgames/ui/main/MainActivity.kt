@@ -10,6 +10,8 @@ import io.indrian.core.domain.model.Genre
 import io.indrian.core.ui.adapter.GameAdapter
 import io.indrian.core.ui.adapter.GenreAdapter
 import io.indrian.core.ui.base.BaseActivity
+import io.indrian.core.utils.hide
+import io.indrian.core.utils.show
 import io.indrian.core.utils.toGone
 import io.indrian.core.utils.toVisible
 import io.indrian.whatgames.databinding.ActivityMainBinding
@@ -31,12 +33,10 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
     private val gameReleasedObserver = Observer<Resource<List<Game>>> { state ->
         when (state) {
             is Resource.Loading -> {
-                binding.shimmerReleasedGamesContainer.root.startShimmer()
-                binding.shimmerReleasedGamesContainer.root.visibility = View.VISIBLE
+                binding.shimmerReleasedGamesContainer.root.show()
             }
             is Resource.Success -> {
-                binding.shimmerReleasedGamesContainer.root.startShimmer()
-                binding.shimmerReleasedGamesContainer.root.visibility = View.INVISIBLE
+                binding.shimmerReleasedGamesContainer.root.hide()
 
                 binding.tvReleased.toVisible()
                 binding.rvReleased.toVisible()
@@ -44,8 +44,7 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
                 gameReleasedAdapter.add(state.data)
             }
             is Resource.Error -> {
-                binding.shimmerReleasedGamesContainer.root.startShimmer()
-                binding.shimmerReleasedGamesContainer.root.visibility = View.INVISIBLE
+                binding.shimmerReleasedGamesContainer.root.hide()
 
                 binding.tvReleased.toGone()
                 binding.rvReleased.toGone()
@@ -66,17 +65,14 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
     private val genresObserver = Observer<Resource<List<Genre>>> { state ->
         when (state) {
             is Resource.Loading -> {
-                binding.shimmerGenreContainer.root.startShimmer()
-                binding.shimmerGenreContainer.root.visibility = View.VISIBLE
+                binding.shimmerGenreContainer.root.show()
             }
             is Resource.Success -> {
-                binding.shimmerGenreContainer.root.stopShimmer()
-                binding.shimmerGenreContainer.root.visibility = View.INVISIBLE
+                binding.shimmerGenreContainer.root.hide()
                 genreAdapter.add(state.data)
             }
             is Resource.Error -> {
-                binding.shimmerGenreContainer.root.stopShimmer()
-                binding.shimmerGenreContainer.root.visibility = View.INVISIBLE
+                binding.shimmerGenreContainer.root.hide()
             }
         }
     }

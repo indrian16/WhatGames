@@ -4,6 +4,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import com.facebook.shimmer.ShimmerFrameLayout
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -51,4 +52,14 @@ fun View.toVisible() {
 
 fun View.toGone() {
     visibility = View.GONE
+}
+
+fun ShimmerFrameLayout.show() {
+    startShimmer()
+    visibility = View.VISIBLE
+}
+
+fun ShimmerFrameLayout.hide() {
+    stopShimmer()
+    visibility = View.INVISIBLE
 }
