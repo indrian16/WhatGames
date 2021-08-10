@@ -73,20 +73,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_date" />
 
-        <TextView
-            android:id="@+id/tv_genres"
-            style="@style/TextAppearance.MdcTypographyStyles.Subtitle2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:maxLines="2"
-            android:text="@string/genre"
-            android:textStyle="bold"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_genres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/btn_visit"
             app:layout_constraintEnd_toEndOf="@+id/tv_title"
             app:layout_constraintStart_toStartOf="@+id/tv_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_visit"
@@ -94,29 +88,28 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="42dp"
             android:layout_marginBottom="16dp"
-            android:padding="12dp"
             android:enabled="false"
+            android:padding="12dp"
             android:text="@string/visit"
             app:cornerRadius="9dp"
             app:elevation="0dp"
             app:iconGravity="start"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tv_genres"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title"
             app:layout_constraintStart_toEndOf="@+id/btn_favorite" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_share_it"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/share_it"
             android:enabled="false"
             android:src="@drawable/ic_share"
             app:backgroundTint="@color/color_grey"
             app:elevation="0dp"
-            android:contentDescription="@string/share_it"
             app:layout_constraintBottom_toBottomOf="@+id/btn_visit"
-            app:layout_constraintStart_toStartOf="@+id/tv_genres"
-            app:layout_constraintTop_toTopOf="@+id/btn_visit"
-            />
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintTop_toTopOf="@+id/btn_visit" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_favorite"

@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.google.android.material.chip.Chip
 import io.indrian.core.data.Resource
 import io.indrian.core.di.GlideApp
 import io.indrian.core.domain.model.Game
@@ -53,7 +54,15 @@ class DetailActivity : BaseActivity() {
 
             cardMainLayout.tvDate.text = game?.updated?.displayDate()
             cardMainLayout.tvTitle.text = game?.name
-            cardMainLayout.tvGenres.text = game?.genres?.joinToString(prefix = "# ", separator = " , # ") { it.name }
+            cardMainLayout.chipGenres.removeAllViews()
+            game?.genres?.forEach {
+                cardMainLayout.chipGenres.addView(
+                    Chip(this@DetailActivity).apply {
+                        text = it.name
+                    }
+                )
+            }
+            //cardMainLayout.tvGenres.text = game?.genres?.joinToString(prefix = "# ", separator = " , # ") { it.name }
 
             tvOverviewValue.text = if (!game?.descriptionRaw.isNullOrEmpty()) {
                 game?.descriptionRaw
