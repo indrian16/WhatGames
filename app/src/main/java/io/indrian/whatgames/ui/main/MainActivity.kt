@@ -2,7 +2,6 @@ package io.indrian.whatgames.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import io.indrian.core.data.Resource
 import io.indrian.core.domain.model.Game
@@ -54,11 +53,17 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
 
     private val gameRatingObserver = Observer<Resource<List<Game>>> { state ->
         when (state) {
-            is Resource.Loading -> { }
+            is Resource.Loading -> {
+                binding.shimmerRatingGamesContainer.root.show()
+            }
             is Resource.Success -> {
+                binding.shimmerRatingGamesContainer.root.hide()
+
                 gameRatingAdapter.add(state.data)
             }
-            is Resource.Error -> { }
+            is Resource.Error -> {
+                binding.shimmerRatingGamesContainer.root.hide()
+            }
         }
     }
 
