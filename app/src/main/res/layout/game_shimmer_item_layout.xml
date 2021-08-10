@@ -21,7 +21,7 @@
         android:id="@+id/tv_title"
         style="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
         android:layout_width="132dp"
-        android:layout_height="28dp"
+        android:layout_height="20dp"
         app:cardBackgroundColor="@color/placeholder_color"
         app:cardCornerRadius="8dp"
         app:cardElevation="1dp"
