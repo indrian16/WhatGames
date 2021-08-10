@@ -51,7 +51,7 @@ class DetailActivity : BaseActivity() {
                 .load(game?.backgroundImage)
                 .into(imageBackdrop)
 
-            cardMainLayout.tvDate.text = getString(R.string.display_date, game?.updated?.displayDate())
+            cardMainLayout.tvDate.text = game?.updated?.displayDate()
             cardMainLayout.tvTitle.text = game?.name
             cardMainLayout.tvGenres.text = game?.genres?.joinToString(prefix = "# ", separator = " , # ") { it.name }
 
