@@ -54,6 +54,10 @@ fun View.toGone() {
     visibility = View.GONE
 }
 
+fun View.toInvisible() {
+    visibility = View.INVISIBLE
+}
+
 fun ShimmerFrameLayout.show() {
     startShimmer()
     visibility = View.VISIBLE

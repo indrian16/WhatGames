@@ -29,16 +29,25 @@ class DetailActivity : BaseActivity() {
             is Resource.Loading -> {
                 binding.overviewShimmerContainerLayout.root.show()
                 binding.tvOverviewValue.toGone()
+
+                binding.cardMainLayout.detailGenresShimmerContainerLayout.root.show()
+                binding.cardMainLayout.chipGenres.toInvisible()
             }
             is Resource.Success -> {
                 binding.overviewShimmerContainerLayout.root.hide()
                 binding.tvOverviewValue.toVisible()
+
+                binding.cardMainLayout.detailGenresShimmerContainerLayout.root.hide()
+                binding.cardMainLayout.chipGenres.toVisible()
 
                 displayGame(state.data)
             }
             is Resource.Error -> {
                 binding.overviewShimmerContainerLayout.root.hide()
                 binding.tvOverviewValue.toVisible()
+
+                binding.cardMainLayout.detailGenresShimmerContainerLayout.root.hide()
+                binding.cardMainLayout.chipGenres.toVisible()
             }
             else -> {}
         }
