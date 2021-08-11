@@ -40,6 +40,10 @@ android {
         viewBinding = true
     }
 
+    lintOptions {
+        disable 'NullSafeMutableLiveData'
+    }
+
     dynamicFeatures = [':favorite']
 
 }
