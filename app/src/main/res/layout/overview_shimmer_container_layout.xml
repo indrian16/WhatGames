@@ -19,31 +19,31 @@
         <include
             android:layout_width="match_parent"
             android:layout_height="12dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             layout="@layout/overview_shimmer_item_layout"/>
 
         <include
             android:layout_width="match_parent"
             android:layout_height="12dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             layout="@layout/overview_shimmer_item_layout"/>
 
         <include
             android:layout_width="200dp"
             android:layout_height="12dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             layout="@layout/overview_shimmer_item_layout"/>
 
         <include
             android:layout_width="124dp"
             android:layout_height="12dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             layout="@layout/overview_shimmer_item_layout"/>
 
         <include
             android:layout_width="130dp"
             android:layout_height="12dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             layout="@layout/overview_shimmer_item_layout"/>
 
         <include
@@ -55,7 +55,7 @@
         <include
             android:layout_width="match_parent"
             android:layout_height="12dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             layout="@layout/overview_shimmer_item_layout"/>
 
         <include
