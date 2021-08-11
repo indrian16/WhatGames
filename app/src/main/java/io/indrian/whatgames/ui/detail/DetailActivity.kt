@@ -13,6 +13,7 @@ import io.indrian.whatgames.R
 import io.indrian.whatgames.databinding.ActivityDetailBinding
 import io.indrian.core.ui.base.BaseActivity
 import io.indrian.core.utils.*
+import io.indrian.whatgames.ui.dialogs.FavoriteDialogFragment
 import io.indrian.whatgames.ui.search.SearchActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -98,6 +99,13 @@ class DetailActivity : BaseActivity() {
             cardMainLayout.btnFavorite.setOnClickListener {
                 if (game != null) {
                     viewModel.setFavorite(game.id)
+                    val resourceAnim = if (cardMainLayout.btnFavorite.isActivated) {
+                        "delete_favorite_anim.json"
+                    } else {
+                        "add_favorite_anim.json"
+                    }
+                    FavoriteDialogFragment.newInstance(resourceAnim)
+                        .show(supportFragmentManager, FavoriteDialogFragment.TAG)
                 }
             }
 

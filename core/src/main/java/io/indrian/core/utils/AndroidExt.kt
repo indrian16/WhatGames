@@ -4,8 +4,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.DialogFragment
 import com.facebook.shimmer.ShimmerFrameLayout
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -56,6 +59,15 @@ fun View.toGone() {
 
 fun View.toInvisible() {
     visibility = View.INVISIBLE
+}
+
+fun DialogFragment.delayJob(
+    durationInMillis: Long,
+    dispatcher: CoroutineDispatcher = Dispatchers.Main,
+    block: () -> Unit
+) = CoroutineScope(dispatcher).launch {
+    delay(durationInMillis)
+    block()
 }
 
 fun ShimmerFrameLayout.show() {
