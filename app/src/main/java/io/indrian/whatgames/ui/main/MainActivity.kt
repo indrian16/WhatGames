@@ -33,6 +33,8 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
         when (state) {
             is Resource.Loading -> {
                 binding.shimmerReleasedGamesContainer.root.show()
+
+                binding.rvReleased.toGone()
             }
             is Resource.Success -> {
                 binding.shimmerReleasedGamesContainer.root.hide()
@@ -55,14 +57,20 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
         when (state) {
             is Resource.Loading -> {
                 binding.shimmerRatingGamesContainer.root.show()
+
+                binding.rvRating.toGone()
             }
             is Resource.Success -> {
                 binding.shimmerRatingGamesContainer.root.hide()
+
+                binding.rvRating.toVisible()
 
                 gameRatingAdapter.add(state.data)
             }
             is Resource.Error -> {
                 binding.shimmerRatingGamesContainer.root.hide()
+
+                binding.rvRating.toGone()
             }
         }
     }
