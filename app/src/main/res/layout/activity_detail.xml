@@ -86,22 +86,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_main_layout" />
 
+        <include
+            android:id="@+id/overview_shimmer_container_layout"
+            layout="@layout/overview_shimmer_container_layout"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_overview_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_overview_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_overview_title"/>
+
         <TextView
             android:id="@+id/tv_overview_value"
             style="@style/TextAppearance.MdcTypographyStyles.Body2"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            tools:text="@tools:sample/lorem/random"
-            android:textColor="@color/white"
-            android:textAlignment="inherit"
+            android:layout_height="0dp"
             android:justificationMode="inter_word"
+            android:textAlignment="inherit"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tv_overview_title"
             app:layout_constraintStart_toStartOf="@+id/tv_overview_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_overview_title"
-            tools:targetApi="o" />
+            tools:targetApi="o"
+            tools:text="@tools:sample/lorem/random" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

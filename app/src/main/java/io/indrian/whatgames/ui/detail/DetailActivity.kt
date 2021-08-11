@@ -9,10 +9,10 @@ import com.google.android.material.chip.Chip
 import io.indrian.core.data.Resource
 import io.indrian.core.di.GlideApp
 import io.indrian.core.domain.model.Game
-import io.indrian.core.utils.displayDate
 import io.indrian.whatgames.R
 import io.indrian.whatgames.databinding.ActivityDetailBinding
 import io.indrian.core.ui.base.BaseActivity
+import io.indrian.core.utils.*
 import io.indrian.whatgames.ui.search.SearchActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -26,11 +26,20 @@ class DetailActivity : BaseActivity() {
 
     private val gameObserver = Observer<Resource<Game>> { state ->
         when (state) {
-            is Resource.Loading -> {}
+            is Resource.Loading -> {
+                binding.overviewShimmerContainerLayout.root.show()
+                binding.tvOverviewValue.toGone()
+            }
             is Resource.Success -> {
+                binding.overviewShimmerContainerLayout.root.hide()
+                binding.tvOverviewValue.toVisible()
+
                 displayGame(state.data)
             }
-            is Resource.Error -> {}
+            is Resource.Error -> {
+                binding.overviewShimmerContainerLayout.root.hide()
+                binding.tvOverviewValue.toVisible()
+            }
             else -> {}
         }
     }
@@ -62,7 +71,6 @@ class DetailActivity : BaseActivity() {
                     }
                 )
             }
-            //cardMainLayout.tvGenres.text = game?.genres?.joinToString(prefix = "# ", separator = " , # ") { it.name }
 
             tvOverviewValue.text = if (!game?.descriptionRaw.isNullOrEmpty()) {
                 game?.descriptionRaw
