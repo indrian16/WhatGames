@@ -26,5 +26,5 @@ interface GameDao {
     suspend fun insertGame(game: GameEntity)
 
     @Update
-    suspend fun updateFavoriteGame(gameEntity: GameEntity)
+    suspend fun updateFavoriteGame(gameEntity: GameEntity): Int
 }

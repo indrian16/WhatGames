@@ -12,7 +12,7 @@ interface IGameRepository {
     fun getDetailsGames(id: Int): Flow<Resource<Game>>
     fun searchGames(search: String): Flow<Resource<List<Game>>>
     fun getFavoriteGame(): Flow<List<Game>>
-    suspend fun setFavoriteGame(id: Int)
+    suspend fun setFavoriteGame(id: Int): Game
 
     fun getGenres(): Flow<Resource<List<Genre>>>
 }

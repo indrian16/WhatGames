@@ -62,6 +62,18 @@ class DetailActivity : BaseActivity() {
 
             viewModel.getGame(game.id).observe(this, gameObserver)
         }
+
+        viewModel.updateFavorite.observe(this) { game ->
+            game?.let {
+                val resourceAnim = if (it.isFavorite) {
+                    "add_favorite_anim.json"
+                } else {
+                    "delete_favorite_anim.json"
+                }
+                FavoriteDialogFragment.newInstance(resourceAnim)
+                    .show(supportFragmentManager, FavoriteDialogFragment.TAG)
+            }
+        }
     }
 
     private fun displayGame(game: Game? = Game()) {
@@ -99,13 +111,6 @@ class DetailActivity : BaseActivity() {
             cardMainLayout.btnFavorite.setOnClickListener {
                 if (game != null) {
                     viewModel.setFavorite(game.id)
-                    val resourceAnim = if (cardMainLayout.btnFavorite.isActivated) {
-                        "delete_favorite_anim.json"
-                    } else {
-                        "add_favorite_anim.json"
-                    }
-                    FavoriteDialogFragment.newInstance(resourceAnim)
-                        .show(supportFragmentManager, FavoriteDialogFragment.TAG)
                 }
             }
 

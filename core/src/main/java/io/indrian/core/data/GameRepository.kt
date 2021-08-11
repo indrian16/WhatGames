@@ -170,9 +170,11 @@ class GameRepository(
         }
     }
 
-    override suspend fun setFavoriteGame(id: Int) {
+    override suspend fun setFavoriteGame(id: Int): Game = DataMapper.mapEntityToDomain(
         localDataSource.setFavoriteGame(id)
-    }
+    )
+
+    //override suspend fun setFavoriteGame(id: Int) = localDataSource.setFavoriteGame(id)
 
     override fun getGenres(): Flow<Resource<List<Genre>>> {
         return object : NetworkBoundResource<List<Genre>, ListGenreResponse, ErrorResponse>() {

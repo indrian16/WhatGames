@@ -4,6 +4,7 @@ import io.indrian.core.data.source.local.dao.GameDao
 import io.indrian.core.data.source.local.dao.GenreDao
 import io.indrian.core.data.source.local.entity.GameEntity
 import io.indrian.core.data.source.local.entity.GenreEntity
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import timber.log.Timber
 
@@ -19,12 +20,15 @@ class LocalDataSource(
 
     suspend fun insertGames(games: List<GameEntity>) = gameDao.insertGames(games)
     suspend fun insertGame(game: GameEntity) = gameDao.insertGame(game)
-    suspend fun setFavoriteGame(id: Int) {
+    suspend fun setFavoriteGame(id: Int): GameEntity {
         val currentGame: GameEntity? = getDetailsGame(id).first()
-        if (currentGame != null) {
+        return if (currentGame != null) {
             currentGame.isFavorite = !currentGame.isFavorite
             Timber.d("setFavoriteGame: $currentGame")
             gameDao.updateFavoriteGame(currentGame)
+            gameDao.getDetailsGame(id).first() ?: currentGame
+        } else {
+            GameEntity()
         }
     }
 
