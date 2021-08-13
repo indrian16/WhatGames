@@ -16,6 +16,7 @@
         android:fullBackupContent="@xml/backup_descriptor">
         <activity android:name="io.indrian.detailgame.DetailActivity"
             android:theme="@style/Theme.WhatGames.Detail"/>
+        <activity android:name="io.indrian.search.SearchActivity"/>
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
