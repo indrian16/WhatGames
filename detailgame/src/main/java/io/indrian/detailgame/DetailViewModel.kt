@@ -1,4 +1,4 @@
-package io.indrian.whatgames.ui.detail
+package io.indrian.detailgame
 
 import androidx.lifecycle.*
 import io.indrian.core.domain.model.Game

@@ -6,10 +6,10 @@ import io.indrian.core.data.Resource
 import io.indrian.core.domain.model.Game
 import io.indrian.core.ui.adapter.GameAdapter
 import io.indrian.core.ui.base.BaseActivity
+import io.indrian.core.utils.NavigationManager
 import io.indrian.core.utils.textChanges
 import io.indrian.search.databinding.ActivitySearchBinding
 import io.indrian.search.di.searchModule
-import io.indrian.whatgames.ui.detail.DetailActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
@@ -66,6 +66,6 @@ class SearchActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
     }
 
     override fun onClickGame(game: Game) {
-        DetailActivity.push(this, game)
+        NavigationManager.pushDetailGame(this, game)
     }
 }

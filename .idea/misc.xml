@@ -21,6 +21,10 @@
         <entry key="app/src/main/res/layout/overview_shimmer_item_layout.xml" value="0.55" />
         <entry key="core/src/main/res/layout/game_item_layout.xml" value="0.335" />
         <entry key="core/src/main/res/layout/genre_item_layout.xml" value="0.15070921985815602" />
+        <entry key="detailgame/src/main/res/layout/card_main_layout.xml" value="0.192481884057971" />
+        <entry key="detailgame/src/main/res/layout/detail_genres_shimmer_container_layout.xml" value="0.192481884057971" />
+        <entry key="detailgame/src/main/res/layout/overview_shimmer_container_layout.xml" value="0.192481884057971" />
+        <entry key="detailgame/src/main/res/layout/overview_shimmer_item_layout.xml" value="0.192481884057971" />
         <entry key="search/src/main/res/layout/activity_search.xml" value="0.1933876811594203" />
       </map>
     </option>

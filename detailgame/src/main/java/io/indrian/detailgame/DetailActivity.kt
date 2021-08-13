@@ -1,20 +1,21 @@
-package io.indrian.whatgames.ui.detail
+package io.indrian.detailgame
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.android.material.chip.Chip
 import io.indrian.core.data.Resource
 import io.indrian.core.di.GlideApp
 import io.indrian.core.domain.model.Game
-import io.indrian.whatgames.R
-import io.indrian.whatgames.databinding.ActivityDetailBinding
 import io.indrian.core.ui.base.BaseActivity
 import io.indrian.core.utils.*
+import io.indrian.detailgame.databinding.ActivityDetailBinding
+import io.indrian.detailgame.di.detailGameModule
+import io.indrian.whatgames.R
 import io.indrian.whatgames.ui.dialogs.FavoriteDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
 import timber.log.Timber
 
 class DetailActivity : BaseActivity() {
@@ -55,8 +56,9 @@ class DetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loadKoinModules(detailGameModule)
 
-        intent?.getParcelableExtra<Game>(GAME_EXTRA)?.let { game ->
+        intent?.getParcelableExtra<Game>(NavigationManager.GAME_EXTRA)?.let { game ->
             displayGame(game)
 
             viewModel.getGame(game.id).observe(this, gameObserver)
@@ -161,7 +163,7 @@ class DetailActivity : BaseActivity() {
             imageBack.setOnClickListener { finish() }
             imageSearch.setOnClickListener {
                 Intent(
-                    it.context,
+                    this@DetailActivity,
                     Class.forName("io.indrian.search.SearchActivity")
                 ).run {
                     startActivity(this)
@@ -174,17 +176,5 @@ class DetailActivity : BaseActivity() {
         super.onDestroy()
         viewModel.getGame().removeObserver(gameObserver)
         _binding = null
-    }
-
-    companion object {
-        private const val GAME_EXTRA = "game_extra"
-
-        fun push(activity: AppCompatActivity, game: Game) {
-            Intent(activity, DetailActivity::class.java).apply {
-                putExtra(GAME_EXTRA, game)
-            }.run {
-                activity.startActivity(this)
-            }
-        }
     }
 }

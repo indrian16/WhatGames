@@ -14,8 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatGames"
         android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name="io.indrian.search.SearchActivity"/>
-        <activity android:name=".ui.detail.DetailActivity"
+        <activity android:name="io.indrian.detailgame.DetailActivity"
             android:theme="@style/Theme.WhatGames.Detail"/>
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>

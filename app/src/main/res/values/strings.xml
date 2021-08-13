@@ -17,4 +17,5 @@
     <string name="search">Search</string>
     <string name="display_date">Update: %s</string>
     <string name="title_search">Search</string>
+    <string name="title_detailgame">Detail Game</string>
 </resources>

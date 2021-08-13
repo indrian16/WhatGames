@@ -9,12 +9,8 @@ import io.indrian.core.domain.model.Genre
 import io.indrian.core.ui.adapter.GameAdapter
 import io.indrian.core.ui.adapter.GenreAdapter
 import io.indrian.core.ui.base.BaseActivity
-import io.indrian.core.utils.hide
-import io.indrian.core.utils.show
-import io.indrian.core.utils.toGone
-import io.indrian.core.utils.toVisible
+import io.indrian.core.utils.*
 import io.indrian.whatgames.databinding.ActivityMainBinding
-import io.indrian.whatgames.ui.detail.DetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
@@ -127,7 +123,8 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
     }
 
     override fun onClickGame(game: Game) {
-        DetailActivity.push(this, game)
+        //io.indrianDetailActivity.push(this, game)
+        NavigationManager.pushDetailGame(this, game)
     }
 
     override fun onDestroy() {
