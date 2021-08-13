@@ -45,7 +45,7 @@ class SearchActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
             edtSearch.textChanges()
                 .filterNot { it.isNullOrBlank() }
                 .debounce(300)
-                .flatMapLatest { viewModel.search(it.toString()) }
+                .flatMapLatest { viewModel.search(it) }
                 .onEach {
                     when (it) {
                         is Resource.Success -> {

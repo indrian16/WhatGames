@@ -9,7 +9,7 @@ interface GameUseCase {
     fun getGamesReleased(): Flow<Resource<List<Game>>>
     fun getGamesRating(): Flow<Resource<List<Game>>>
     fun getDetailsGames(id: Int): Flow<Resource<Game>>
-    fun searchGames(search: String): Flow<Resource<List<Game>>>
+    fun searchGames(search: CharSequence?): Flow<Resource<List<Game>>>
     fun getFavoriteGames(): Flow<List<Game>>
     suspend fun setFavoriteGame(id: Int): Game
 

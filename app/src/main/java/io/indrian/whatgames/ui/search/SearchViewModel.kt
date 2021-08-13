@@ -5,5 +5,5 @@ import io.indrian.core.domain.usecase.GameUseCase
 
 class SearchViewModel(private val gameUseCase: GameUseCase) : ViewModel() {
 
-    fun search(search: String) = gameUseCase.searchGames(search)
+    fun search(search: CharSequence?) = gameUseCase.searchGames(search)
 }
