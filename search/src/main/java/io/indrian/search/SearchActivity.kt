@@ -1,20 +1,20 @@
-package io.indrian.whatgames.ui.search
+package io.indrian.search
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import io.indrian.core.data.Resource
 import io.indrian.core.domain.model.Game
 import io.indrian.core.ui.adapter.GameAdapter
-import io.indrian.core.utils.textChanges
-import io.indrian.whatgames.databinding.ActivitySearchBinding
 import io.indrian.core.ui.base.BaseActivity
+import io.indrian.core.utils.textChanges
+import io.indrian.search.databinding.ActivitySearchBinding
+import io.indrian.search.di.searchModule
 import io.indrian.whatgames.ui.detail.DetailActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
 
 class SearchActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
 
@@ -27,6 +27,8 @@ class SearchActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loadKoinModules(searchModule)
+
         binding.rvSearch.adapter = gameAdapter
         binding.edtSearch.requestFocus()
     }
@@ -65,15 +67,5 @@ class SearchActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
 
     override fun onClickGame(game: Game) {
         DetailActivity.push(this, game)
-    }
-
-    companion object {
-        fun push(activity: AppCompatActivity) {
-            activity.run {
-                startActivity(
-                    Intent(this, SearchActivity::class.java)
-                )
-            }
-        }
     }
 }

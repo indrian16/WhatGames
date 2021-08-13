@@ -10,6 +10,7 @@ import org.koin.dsl.module
 val repositoryModule = module {
     single { LocalDataSource(get(), get()) }
     single { RemoteDataSource(get(), Dispatchers.IO) }
+
     single<IGameRepository> {
         GameRepository(
             get(),

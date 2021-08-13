@@ -1,4 +1,4 @@
-package io.indrian.whatgames.ui.search
+package io.indrian.search
 
 import androidx.lifecycle.ViewModel
 import io.indrian.core.domain.usecase.GameUseCase

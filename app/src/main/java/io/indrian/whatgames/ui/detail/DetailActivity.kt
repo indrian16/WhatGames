@@ -14,7 +14,6 @@ import io.indrian.whatgames.databinding.ActivityDetailBinding
 import io.indrian.core.ui.base.BaseActivity
 import io.indrian.core.utils.*
 import io.indrian.whatgames.ui.dialogs.FavoriteDialogFragment
-import io.indrian.whatgames.ui.search.SearchActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -160,7 +159,14 @@ class DetailActivity : BaseActivity() {
     override fun initListener() {
         with(binding) {
             imageBack.setOnClickListener { finish() }
-            imageSearch.setOnClickListener { SearchActivity.push(this@DetailActivity) }
+            imageSearch.setOnClickListener {
+                Intent(
+                    it.context,
+                    Class.forName("io.indrian.search.SearchActivity")
+                ).run {
+                    startActivity(this)
+                }
+            }
         }
     }
 

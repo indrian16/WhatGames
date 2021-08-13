@@ -44,7 +44,7 @@ android {
         disable 'NullSafeMutableLiveData'
     }
 
-    dynamicFeatures = [':favorite']
+    dynamicFeatures = [':favorite', ':search']
 
 }
 

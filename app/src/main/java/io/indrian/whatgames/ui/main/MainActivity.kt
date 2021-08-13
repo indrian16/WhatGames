@@ -15,7 +15,6 @@ import io.indrian.core.utils.toGone
 import io.indrian.core.utils.toVisible
 import io.indrian.whatgames.databinding.ActivityMainBinding
 import io.indrian.whatgames.ui.detail.DetailActivity
-import io.indrian.whatgames.ui.search.SearchActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
@@ -116,7 +115,14 @@ class MainActivity : BaseActivity(), GameAdapter.OnGameCallbackListener {
                     startActivity(this)
                 }
             }
-            imageSearch.setOnClickListener { SearchActivity.push(this@MainActivity) }
+            imageSearch.setOnClickListener {
+                Intent(
+                    it.context,
+                    Class.forName("io.indrian.search.SearchActivity")
+                ).run {
+                    startActivity(this)
+                }
+            }
         }
     }
 

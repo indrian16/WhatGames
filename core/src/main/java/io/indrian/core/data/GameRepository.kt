@@ -15,12 +15,12 @@ import io.indrian.core.utils.DataMapper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 
-@ExperimentalCoroutinesApi
 class GameRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
 ) : IGameRepository {
 
+    @ExperimentalCoroutinesApi
     override fun getGamesReleased(): Flow<Resource<List<Game>>> {
         return object : NetworkBoundResource<List<Game>, ListGameResponse, ErrorResponse>() {
             override fun loadFromDB(): Flow<List<Game>> {
